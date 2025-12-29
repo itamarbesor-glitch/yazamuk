@@ -123,8 +123,8 @@ export async function POST(request: NextRequest) {
         authUrl,
         new URLSearchParams({
           grant_type: 'client_credentials',
-          client_id: apiKey,
-          client_secret: secretKey,
+          client_id: apiKey || '',
+          client_secret: secretKey || '',
         }),
         {
           headers: {

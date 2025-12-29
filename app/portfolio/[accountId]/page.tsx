@@ -216,19 +216,19 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8 flex justify-between items-center">
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
               Your Portfolio
             </h1>
-            <p className="text-gray-400">Track your stocks and their current value</p>
+            <p className="text-sm sm:text-base text-gray-400">Track your stocks and their current value</p>
           </div>
           {user && (
-            <div className="text-right">
-              <div className="text-sm text-gray-400">Logged in as</div>
-              <div className="text-cyan-400 font-semibold">{user.email}</div>
+            <div className="text-left sm:text-right w-full sm:w-auto">
+              <div className="text-xs sm:text-sm text-gray-400">Logged in as</div>
+              <div className="text-cyan-400 font-semibold text-sm sm:text-base break-all">{user.email}</div>
               <button
                 onClick={async () => {
                   try {
@@ -248,11 +248,11 @@ export default function PortfolioPage() {
 
         {/* Welcome Message */}
         {showWelcome && (
-          <div className="mb-8 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl p-6">
-            <div className="flex items-start gap-4">
-              <div className="text-4xl">🎉</div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-cyan-400 mb-2">Welcome to Your Portfolio!</h2>
+          <div className="mb-6 sm:mb-8 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl p-4 sm:p-6">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="text-2xl sm:text-4xl flex-shrink-0">🎉</div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg sm:text-xl font-bold text-cyan-400 mb-2">Welcome to Your Portfolio!</h2>
                 <p className="text-gray-300 mb-3">
                   Your gift has been received and your account is being set up. Here's what's happening:
                 </p>
@@ -272,7 +272,8 @@ export default function PortfolioPage() {
               </div>
               <button
                 onClick={() => setShowWelcome(false)}
-                className="text-gray-500 hover:text-gray-300 transition-colors"
+                className="text-gray-500 hover:text-gray-300 transition-colors flex-shrink-0 text-xl sm:text-2xl"
+                aria-label="Close"
               >
                 ✕
               </button>
@@ -282,62 +283,63 @@ export default function PortfolioPage() {
 
         {/* Login Reminder (if not showing welcome) */}
         {!showWelcome && user && (
-          <div className="mb-8 bg-gray-800/50 border border-gray-700 rounded-xl p-4">
-            <p className="text-sm text-gray-400">
-              <span className="text-cyan-400">💡 Tip:</span> You can log in anytime using your email ({user.email}) and password to access your portfolio.
+          <div className="mb-6 sm:mb-8 bg-gray-800/50 border border-gray-700 rounded-xl p-3 sm:p-4">
+            <p className="text-xs sm:text-sm text-gray-400">
+              <span className="text-cyan-400">💡 Tip:</span> You can log in anytime using your email (<span className="break-all">{user.email}</span>) and password to access your portfolio.
             </p>
           </div>
         )}
 
         {/* Open Orders Section */}
         {openOrders.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4 text-white">Active Orders</h2>
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">Active Orders</h2>
             <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-800 border-b border-gray-700">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Symbol</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Side</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Quantity</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Filled</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Notional</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Status</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Submitted</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700">
-                    {openOrders.map((order) => (
-                      <tr key={order.id} className="hover:bg-gray-800/50 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="text-lg font-bold text-white">{order.symbol}</div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-2 py-1 rounded text-sm font-semibold ${
-                            order.side === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-                          }`}>
-                            {order.side.toUpperCase()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-300">
-                          {formatNumber(order.qty || '0')}
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-300">
-                          {formatNumber(order.filled_qty || '0')}
-                        </td>
-                        <td className="px-6 py-4 text-right text-white font-semibold">
-                          {formatCurrency(order.notional || '0')}
-                        </td>
-                        <td className={`px-6 py-4 text-right font-semibold ${getStatusColor(order.status)}`}>
-                          {getStatusLabel(order.status)}
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-400 text-sm">
-                          {formatDate(order.submitted_at)}
-                        </td>
+              <div className="overflow-x-auto -mx-4 sm:mx-0">
+                <div className="inline-block min-w-full align-middle">
+                  <table className="min-w-full divide-y divide-gray-700">
+                    <thead className="bg-gray-800 border-b border-gray-700">
+                      <tr>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Side</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden sm:table-cell">Filled</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Amount</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Status</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Time</th>
                       </tr>
-                    ))}
-                  </tbody>
+                    </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {openOrders.map((order) => (
+                        <tr key={order.id} className="hover:bg-gray-800/50 transition-colors">
+                          <td className="px-3 sm:px-6 py-3 sm:py-4">
+                            <div className="text-base sm:text-lg font-bold text-white">{order.symbol}</div>
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4">
+                            <span className={`px-2 py-1 rounded text-xs sm:text-sm font-semibold ${
+                              order.side === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                            }`}>
+                              {order.side.toUpperCase()}
+                            </span>
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-300 text-sm sm:text-base">
+                            {formatNumber(order.qty || '0')}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-300 text-sm sm:text-base hidden sm:table-cell">
+                            {formatNumber(order.filled_qty || '0')}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-white font-semibold text-sm sm:text-base">
+                            {formatCurrency(order.notional || '0')}
+                          </td>
+                          <td className={`px-3 sm:px-6 py-3 sm:py-4 text-right font-semibold text-xs sm:text-sm ${getStatusColor(order.status)}`}>
+                            {getStatusLabel(order.status)}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-400 text-xs sm:text-sm hidden md:table-cell">
+                            {formatDate(order.submitted_at)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
                 </table>
               </div>
             </div>
@@ -346,22 +348,22 @@ export default function PortfolioPage() {
 
         {/* Account Summary */}
         {accountInfo && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <div className="text-sm text-gray-400 mb-1">Cash</div>
-              <div className="text-2xl font-bold text-cyan-400">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6">
+              <div className="text-xs sm:text-sm text-gray-400 mb-1">Cash</div>
+              <div className="text-xl sm:text-2xl font-bold text-cyan-400 break-words">
                 {formatCurrency(accountInfo.cash)}
               </div>
             </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <div className="text-sm text-gray-400 mb-1">Total Portfolio Value</div>
-              <div className="text-2xl font-bold text-green-400">
+            <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6">
+              <div className="text-xs sm:text-sm text-gray-400 mb-1">Total Portfolio Value</div>
+              <div className="text-xl sm:text-2xl font-bold text-green-400 break-words">
                 {formatCurrency(totalPortfolioValue + parseFloat(accountInfo.cash || '0'))}
               </div>
             </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-6">
-              <div className="text-sm text-gray-400 mb-1">Unrealized P/L</div>
-              <div className={`text-2xl font-bold ${totalUnrealizedPL >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+            <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 sm:col-span-2 md:col-span-1">
+              <div className="text-xs sm:text-sm text-gray-400 mb-1">Unrealized P/L</div>
+              <div className={`text-xl sm:text-2xl font-bold break-words ${totalUnrealizedPL >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {formatCurrency(totalUnrealizedPL)}
               </div>
             </div>
@@ -369,12 +371,12 @@ export default function PortfolioPage() {
         )}
 
         {/* Positions Section */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-white">Your Holdings</h2>
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">Your Holdings</h2>
           {positions.length === 0 ? (
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-12 text-center">
-              <div className="text-gray-400 text-lg mb-2">No positions yet</div>
-              <div className="text-gray-500 text-sm">
+            <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 sm:p-12 text-center">
+              <div className="text-gray-400 text-base sm:text-lg mb-2">No positions yet</div>
+              <div className="text-gray-500 text-xs sm:text-sm">
                 {openOrders.length > 0 
                   ? 'Your order is being processed. Positions will appear here once filled.'
                   : 'Your stock holdings will appear here once you have open positions.'}
@@ -382,54 +384,55 @@ export default function PortfolioPage() {
             </div>
           ) : (
           <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-800 border-b border-gray-700">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Symbol</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Quantity</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Current Price</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Market Value</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Cost Basis</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Unrealized P/L</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">P/L %</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-700">
-                  {positions.map((position, index) => {
-                    const unrealizedPL = parseFloat(position.unrealized_pl || '0')
-                    const unrealizedPLPercent = parseFloat(position.unrealized_plpc || '0')
-                    return (
-                      <tr key={index} className="hover:bg-gray-800/50 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="text-lg font-bold text-white">{position.symbol}</div>
-                        </td>
-                        <td className="px-6 py-4 text-gray-300">
-                          {formatNumber(position.qty)} shares
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-300">
-                          {formatCurrency(position.current_price)}
-                        </td>
-                        <td className="px-6 py-4 text-right text-white font-semibold">
-                          {formatCurrency(position.market_value)}
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-400">
-                          {formatCurrency(position.cost_basis)}
-                        </td>
-                        <td className={`px-6 py-4 text-right font-semibold ${
-                          unrealizedPL >= 0 ? 'text-green-400' : 'text-red-400'
-                        }`}>
-                          {formatCurrency(unrealizedPL)}
-                        </td>
-                        <td className={`px-6 py-4 text-right font-semibold ${
-                          unrealizedPLPercent >= 0 ? 'text-green-400' : 'text-red-400'
-                        }`}>
-                          {unrealizedPLPercent >= 0 ? '+' : ''}{formatNumber(unrealizedPLPercent)}%
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle">
+                <table className="min-w-full divide-y divide-gray-700">
+                  <thead className="bg-gray-800 border-b border-gray-700">
+                    <tr>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden sm:table-cell">Price</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Value</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Cost</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L %</th>
+                    </tr>
+                  </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {positions.map((position, index) => {
+                        const unrealizedPL = parseFloat(position.unrealized_pl || '0')
+                        const unrealizedPLPercent = parseFloat(position.unrealized_plpc || '0')
+                        return (
+                          <tr key={index} className="hover:bg-gray-800/50 transition-colors">
+                            <td className="px-3 sm:px-6 py-3 sm:py-4">
+                              <div className="text-base sm:text-lg font-bold text-white">{position.symbol}</div>
+                            </td>
+                            <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm sm:text-base">
+                              {formatNumber(position.qty)} <span className="hidden sm:inline">shares</span>
+                            </td>
+                            <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-300 text-sm sm:text-base hidden sm:table-cell">
+                              {formatCurrency(position.current_price)}
+                            </td>
+                            <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-white font-semibold text-sm sm:text-base">
+                              {formatCurrency(position.market_value)}
+                            </td>
+                            <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-400 text-sm sm:text-base hidden md:table-cell">
+                              {formatCurrency(position.cost_basis)}
+                            </td>
+                            <td className={`px-3 sm:px-6 py-3 sm:py-4 text-right font-semibold text-sm sm:text-base ${
+                              unrealizedPL >= 0 ? 'text-green-400' : 'text-red-400'
+                            }`}>
+                              {formatCurrency(unrealizedPL)}
+                            </td>
+                            <td className={`px-3 sm:px-6 py-3 sm:py-4 text-right font-semibold text-xs sm:text-sm ${
+                              unrealizedPLPercent >= 0 ? 'text-green-400' : 'text-red-400'
+                            }`}>
+                              {unrealizedPLPercent >= 0 ? '+' : ''}{formatNumber(unrealizedPLPercent)}%
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
               </table>
             </div>
           </div>
@@ -439,51 +442,53 @@ export default function PortfolioPage() {
         {/* Recent Filled Orders */}
         {recentFilledOrders.length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Recent Orders</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">Recent Orders</h2>
             <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-800 border-b border-gray-700">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Symbol</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Side</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Quantity</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Avg Price</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Total Value</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Filled At</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-700">
-                    {recentFilledOrders.map((order) => (
-                      <tr key={order.id} className="hover:bg-gray-800/50 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="text-lg font-bold text-white">{order.symbol}</div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-2 py-1 rounded text-sm font-semibold ${
-                            order.side === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
-                          }`}>
-                            {order.side.toUpperCase()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-300">
-                          {formatNumber(order.filled_qty || order.qty || '0')}
-                        </td>
-                        <td className="px-6 py-4 text-right text-white font-semibold">
-                          {formatCurrency(order.filled_avg_price || '0')}
-                        </td>
-                        <td className="px-6 py-4 text-right text-white font-semibold">
-                          {formatCurrency(
-                            parseFloat(order.filled_qty || '0') * parseFloat(order.filled_avg_price || '0')
-                          )}
-                        </td>
-                        <td className="px-6 py-4 text-right text-gray-400 text-sm">
-                          {formatDate(order.filled_at || order.submitted_at)}
-                        </td>
+              <div className="overflow-x-auto -mx-4 sm:mx-0">
+                <div className="inline-block min-w-full align-middle">
+                  <table className="min-w-full divide-y divide-gray-700">
+                    <thead className="bg-gray-800 border-b border-gray-700">
+                      <tr>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Side</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden sm:table-cell">Avg Price</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Total</th>
+                        <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Filled At</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {recentFilledOrders.map((order) => (
+                        <tr key={order.id} className="hover:bg-gray-800/50 transition-colors">
+                          <td className="px-3 sm:px-6 py-3 sm:py-4">
+                            <div className="text-base sm:text-lg font-bold text-white">{order.symbol}</div>
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4">
+                            <span className={`px-2 py-1 rounded text-xs sm:text-sm font-semibold ${
+                              order.side === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                            }`}>
+                              {order.side.toUpperCase()}
+                            </span>
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-300 text-sm sm:text-base">
+                            {formatNumber(order.filled_qty || order.qty || '0')}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-white font-semibold text-sm sm:text-base hidden sm:table-cell">
+                            {formatCurrency(order.filled_avg_price || '0')}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-white font-semibold text-sm sm:text-base">
+                            {formatCurrency(
+                              parseFloat(order.filled_qty || '0') * parseFloat(order.filled_avg_price || '0')
+                            )}
+                          </td>
+                          <td className="px-3 sm:px-6 py-3 sm:py-4 text-right text-gray-400 text-xs sm:text-sm hidden md:table-cell">
+                            {formatDate(order.filled_at || order.submitted_at)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

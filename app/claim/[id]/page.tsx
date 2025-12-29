@@ -151,24 +151,24 @@ export default function ClaimPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-2xl mx-auto">
-        <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+        <div className="mb-6 sm:mb-8 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
             You received a gift! 🎁
           </h1>
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 mb-6">
-            <p className="text-2xl font-semibold text-white mb-4">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
               You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
             </p>
-            <p className="text-3xl font-bold text-cyan-400 mb-6">
+            <p className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4 sm:mb-6">
               ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
             </p>
-            <div className="space-y-3">
-              <p className="text-gray-300 text-lg">
+            <div className="space-y-2 sm:space-y-3">
+              <p className="text-gray-300 text-base sm:text-lg">
                 Complete the form below to claim your gift
               </p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-400 text-xs sm:text-sm">
                 Already have an account?{' '}
                 <a 
                   href="/login" 
@@ -182,8 +182,8 @@ export default function ClaimPage() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-700 rounded-xl p-8 space-y-6">
-          <h2 className="text-2xl font-semibold mb-6">Account Information</h2>
+        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Account Information</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -273,7 +273,7 @@ export default function ClaimPage() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 City *
@@ -300,7 +300,7 @@ export default function ClaimPage() {
               />
             </div>
 
-            <div>
+            <div className="sm:col-span-2 md:col-span-1">
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 Zip Code *
               </label>

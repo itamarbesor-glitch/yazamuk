@@ -44,25 +44,25 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-gray-900 border border-gray-700 rounded-2xl p-8 text-center">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4 py-8">
+      <div className="max-w-md w-full bg-gray-900 border border-gray-700 rounded-2xl p-6 sm:p-8 text-center">
         <div className="mb-6">
           <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
             Gift Created!
           </h1>
-          <p className="text-gray-400 mb-4">
+          <p className="text-gray-400 mb-4 text-sm sm:text-base">
             Your gift has been successfully created
           </p>
         </div>
 
-        <div className="mb-6 p-6 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl">
-          <div className="text-4xl mb-4">📱</div>
-          <p className="text-gray-300 text-lg mb-2">
+        <div className="mb-6 p-4 sm:p-6 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl">
+          <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📱</div>
+          <p className="text-gray-300 text-base sm:text-lg mb-2">
             {gift ? (
               <>
                 <span className="text-cyan-400 font-semibold">{gift.receiverName}</span> will receive a WhatsApp message
@@ -71,7 +71,7 @@ export default function SuccessPage() {
               'Your friend will receive a WhatsApp message'
             )}
           </p>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-xs sm:text-sm">
             {gift ? (
               <>
                 We&apos;ve sent <span className="text-cyan-400 font-semibold">{gift.receiverName}</span> a WhatsApp message with a link to claim their gift of{' '}
@@ -84,15 +84,15 @@ export default function SuccessPage() {
           </p>
         </div>
 
-        <div className="mb-6 p-4 bg-gray-800 rounded-lg">
-          <p className="text-sm text-gray-400">
+        <div className="mb-6 p-3 sm:p-4 bg-gray-800 rounded-lg">
+          <p className="text-xs sm:text-sm text-gray-400">
             💡 Your friend will receive the WhatsApp message shortly. They can click the link in the message to claim their gift and set up their account.
           </p>
         </div>
 
         <a
           href="/"
-          className="inline-block px-6 py-3 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-105"
+          className="inline-block px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-105 text-sm sm:text-base"
         >
           Create another gift
         </a>

@@ -54,20 +54,20 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
         <div className="max-w-2xl mx-auto">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
               Yazamuk
             </h1>
             <a
               href="/login"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm sm:text-base"
             >
               Login
             </a>
           </div>
-          <p className="text-xl text-gray-400 mb-12">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 sm:mb-12">
             Gift stocks to your friends
           </p>
 
@@ -155,20 +155,20 @@ export default function Home() {
               <label className="block text-sm font-medium text-gray-300 mb-4">
                 Select Stock
               </label>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 {STOCKS.map((stock) => (
                   <button
                     key={stock.symbol}
                     type="button"
                     onClick={() => setFormData({ ...formData, stockSymbol: stock.symbol })}
-                    className={`p-6 rounded-xl border-2 transition-all transform hover:scale-105 ${
+                    className={`p-4 sm:p-6 rounded-xl border-2 transition-all transform hover:scale-105 ${
                       formData.stockSymbol === stock.symbol
                         ? 'border-cyan-400 bg-gradient-to-br ' + stock.color + ' shadow-lg shadow-cyan-500/50'
                         : 'border-gray-700 bg-gray-900 hover:border-gray-600'
                     }`}
                   >
-                    <div className="text-2xl font-bold mb-1">{stock.symbol}</div>
-                    <div className="text-sm text-gray-400">{stock.name}</div>
+                    <div className="text-xl sm:text-2xl font-bold mb-1">{stock.symbol}</div>
+                    <div className="text-xs sm:text-sm text-gray-400">{stock.name}</div>
                   </button>
                 ))}
               </div>
