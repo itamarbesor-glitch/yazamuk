@@ -35,8 +35,16 @@ export async function POST(request: NextRequest) {
     // In a real app, you would integrate with a payment processor here
 
     // Send WhatsApp message to receiver (async, don't wait)
+    // Use production URL from env, fallback to localhost for dev
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const claimUrl = `${baseUrl}/claim/${gift.id}`
+    
+    console.log('📱 WhatsApp setup:', {
+      baseUrl,
+      claimUrl,
+      receiverMobile,
+      hasImage: !!imageUrl,
+    })
     
     // Map stock symbols to image URLs
     // Images should be in /public/images/ folder or hosted publicly
@@ -60,7 +68,13 @@ export async function POST(request: NextRequest) {
     console.log('Claim URL:', claimUrl)
     console.log('Image URL:', imageUrl)
     
-    fetch(`${baseUrl}/api/send-whatsapp`, {
+    // Send WhatsApp message asynchronously (don't block gift creation)
+    // Use absolute URL for server-side fetch in production
+    const whatsappApiUrl = baseUrl.includes('localhost') 
+      ? `${baseUrl}/api/send-whatsapp`
+      : `${process.env.NEXT_PUBLIC_BASE_URL || baseUrl}/api/send-whatsapp`
+    
+    fetch(whatsappApiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -74,11 +88,20 @@ export async function POST(request: NextRequest) {
       if (response.ok) {
         console.log('✅ WhatsApp message sent successfully:', data)
       } else {
-        console.error('❌ WhatsApp API error:', data)
+        console.error('❌ WhatsApp API error:', {
+          status: response.status,
+          data: data,
+          url: whatsappApiUrl,
+        })
       }
     })
     .catch((whatsappError) => {
-      console.error('❌ Error sending WhatsApp message:', whatsappError)
+      console.error('❌ Error sending WhatsApp message:', {
+        error: whatsappError.message,
+        stack: whatsappError.stack,
+        url: whatsappApiUrl,
+        receiverMobile: receiverMobile,
+      })
       // Don't fail the gift creation if WhatsApp fails
     })
 
