@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  username        String   // Will default to email if not provided
+  password        String   // Hashed password
+  alpacaAccountId String?  @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  gifts           Gift[]   // Gifts received by this user
+}
+
+model Gift {
+  id              String   @id @default(uuid())
+  senderName      String
+  senderMobile    String?  // Sender's mobile number for WhatsApp
+  receiverName    String
+  receiverEmail   String
+  receiverMobile  String?  // Receiver's mobile number for WhatsApp
+  amount          Float
+  stockSymbol     String
+  status          String   @default("PENDING")
+  alpacaAccountId String?
+  userId          String?  // Link to User if they've set up account
+  user            User?    @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
