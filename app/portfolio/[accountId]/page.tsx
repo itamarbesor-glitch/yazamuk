@@ -340,7 +340,8 @@ export default function PortfolioPage() {
                         </tr>
                       ))}
                     </tbody>
-                </table>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -433,9 +434,10 @@ export default function PortfolioPage() {
                         )
                       })}
                     </tbody>
-              </table>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
           )}
         </div>
 
