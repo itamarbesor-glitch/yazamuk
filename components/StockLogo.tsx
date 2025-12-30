@@ -33,7 +33,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
     NVDA: {
       src: '/images/logos/nvidia.png',
       alt: 'NVIDIA Logo',
-      scale: 3, // Make NVIDIA logo much larger
+      // No scaling - keep same size as others
       // No cropping - show full logo
     },
   }
@@ -54,18 +54,11 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const imgWidth = baseWidth * scale
   const imgHeight = baseHeight * scale
 
-  // For NVIDIA, use a larger container to prevent clipping
-  const containerClass = symbol === 'NVDA' 
-    ? 'flex items-center justify-center relative' 
-    : `${sizeClass} flex items-center justify-center relative`
-
   return (
     <div 
-      className={containerClass}
+      className={`${sizeClass} flex items-center justify-center relative`}
       style={{ 
         overflow: logo.cropTop ? 'hidden' : 'visible',
-        width: symbol === 'NVDA' ? '100%' : undefined,
-        height: symbol === 'NVDA' ? '100%' : undefined,
       }}
     >
       <img
