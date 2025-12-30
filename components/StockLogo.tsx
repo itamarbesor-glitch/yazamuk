@@ -64,14 +64,8 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       <img
         src={logo.src}
         alt={logo.alt}
-        width={imgWidth}
-        height={imgHeight}
-        className="object-contain"
+        className="w-full h-full object-contain"
         style={{
-          width: scale !== 1 ? `${100 * scale}%` : '100%',
-          height: scale !== 1 ? `${100 * scale}%` : '100%',
-          maxWidth: 'none',
-          maxHeight: 'none',
           objectPosition: 'center', // Center all logos vertically and horizontally
           // Crop Tesla to show only top 60% (symbol part, hide text below)
           clipPath: logo.cropTop ? 'inset(0 0 40% 0)' : 'none',
