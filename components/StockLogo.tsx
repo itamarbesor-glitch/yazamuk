@@ -24,15 +24,18 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   }
 
   // Tesla and NVIDIA use image files with mint color filter
-  const logos: { [key: string]: { src: string; alt: string; scale?: number } } = {
+  // Crop to show only the symbol, not the text
+  const logos: { [key: string]: { src: string; alt: string; scale?: number; cropTop?: boolean } } = {
     TSLA: {
       src: '/images/logos/tesla.png',
       alt: 'Tesla Logo',
+      cropTop: true, // Crop to show only the T symbol, not the TESLA text
     },
     NVDA: {
       src: '/images/logos/nvidia.png',
       alt: 'NVIDIA Logo',
       scale: 3, // Make NVIDIA logo much larger
+      cropTop: true, // Crop to show only the eye symbol, not the NVIDIA text
     },
   }
 
@@ -53,7 +56,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const imgHeight = baseHeight * scale
 
   return (
-    <div className={`${sizeClass} flex items-center justify-center relative`} style={{ overflow: 'visible' }}>
+    <div className={`${sizeClass} flex items-center justify-center relative`} style={{ overflow: 'hidden' }}>
       <img
         src={logo.src}
         alt={logo.alt}
@@ -65,6 +68,9 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
           height: scale !== 1 ? `${100 * scale}%` : '100%',
           maxWidth: 'none',
           maxHeight: 'none',
+          objectPosition: logo.cropTop ? 'top center' : 'center',
+          // Crop to show only top 60% (symbol part, hide text below)
+          clipPath: logo.cropTop ? 'inset(0 0 40% 0)' : 'none',
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
