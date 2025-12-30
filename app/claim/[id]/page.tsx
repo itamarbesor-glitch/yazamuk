@@ -319,7 +319,7 @@ export default function ClaimPage() {
                   Already have an account?{' '}
                   <a 
                     href="/login" 
-                    className="text-cyan-400 hover:text-cyan-300 underline font-medium"
+                    className="text-mint-400 hover:text-mint-300 underline font-medium"
                   >
                     Log in to your profile
                   </a>
