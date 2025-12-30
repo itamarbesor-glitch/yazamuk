@@ -26,7 +26,7 @@ export default function ClaimPage() {
     lastName: 'Doe',
     email: '',
     dateOfBirth: '1990-01-01',
-    taxId: '123-45-6789',
+    taxId: '123456789',
     streetAddress: '123 Main Street',
     city: 'New York',
     state: 'NY',
@@ -279,53 +279,32 @@ export default function ClaimPage() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             You received a gift! 🎁
           </h1>
-          <div className="glass rounded-xl overflow-hidden mb-4 sm:mb-6 shadow-xl">
-            {/* Stock Image - Full Width Hero */}
-            {stockImage && (
-              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
-                <img 
-                  src={stockImage} 
-                  alt={gift.stockSymbol}
-                  className="w-full h-full object-contain"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/95 to-slate-950/80 pt-24 sm:pt-28 md:pt-32 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
-                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
-                    You received a gift from <span className="text-mint-400">{gift.senderName}</span>
-                  </p>
-                  <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint-400">
-                    ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
-                  </p>
-                </div>
-              </div>
-            )}
-            
-            {/* Content below image */}
-            <div className="p-4 sm:p-6 md:p-8">
-              {!stockImage && (
-                <>
-                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
-                    You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
-                  </p>
-                  <p className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4 sm:mb-6">
-                    ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
-                  </p>
-                </>
-              )}
-              <div className="space-y-2 sm:space-y-3">
-                <p className="text-gray-300 text-base sm:text-lg">
-                  Complete the form below to claim your gift
-                </p>
-                <p className="text-gray-400 text-xs sm:text-sm">
-                  Already have an account?{' '}
-                  <a 
-                    href="/login" 
-                    className="text-mint-400 hover:text-mint-300 underline font-medium"
-                  >
-                    Log in to your profile
-                  </a>
-                  {' '}to claim this gift
+          <div className="glass rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 shadow-xl">
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
+              You received a gift from <span className="text-mint-400">{gift.senderName}</span>
+            </p>
+            <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint-400 mb-4 sm:mb-6">
+              ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
+            </p>
+            <div className="space-y-2 sm:space-y-3">
+              <p className="text-gray-300 text-base sm:text-lg">
+                Complete the form below to claim your gift
+              </p>
+              <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+                <p className="text-xs sm:text-sm text-amber-300">
+                  <strong>Beta Testing:</strong> Form is pre-filled with test data. Only email and password need to be entered.
                 </p>
               </div>
+              <p className="text-gray-400 text-xs sm:text-sm">
+                Already have an account?{' '}
+                <a 
+                  href="/login" 
+                  className="text-mint-400 hover:text-mint-300 underline font-medium"
+                >
+                  Log in to your profile
+                </a>
+                {' '}to claim this gift
+              </p>
             </div>
           </div>
         </div>
