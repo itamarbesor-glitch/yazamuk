@@ -55,7 +55,10 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const imgHeight = baseHeight * scale
 
   return (
-    <div className={`${sizeClass} flex items-center justify-center relative`} style={{ overflow: 'hidden' }}>
+    <div 
+      className={`${sizeClass} flex items-center justify-center relative`} 
+      style={{ overflow: logo.cropTop ? 'hidden' : 'visible' }}
+    >
       <img
         src={logo.src}
         alt={logo.alt}
