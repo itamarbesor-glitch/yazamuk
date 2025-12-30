@@ -54,10 +54,19 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const imgWidth = baseWidth * scale
   const imgHeight = baseHeight * scale
 
+  // For NVIDIA, use a larger container to prevent clipping
+  const containerClass = symbol === 'NVDA' 
+    ? 'flex items-center justify-center relative' 
+    : `${sizeClass} flex items-center justify-center relative`
+
   return (
     <div 
-      className={`${sizeClass} flex items-center justify-center relative`} 
-      style={{ overflow: logo.cropTop ? 'hidden' : 'visible' }}
+      className={containerClass}
+      style={{ 
+        overflow: logo.cropTop ? 'hidden' : 'visible',
+        width: symbol === 'NVDA' ? '100%' : undefined,
+        height: symbol === 'NVDA' ? '100%' : undefined,
+      }}
     >
       <img
         src={logo.src}
@@ -70,7 +79,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
           height: scale !== 1 ? `${100 * scale}%` : '100%',
           maxWidth: 'none',
           maxHeight: 'none',
-          objectPosition: logo.cropTop ? 'top center' : 'center', // Center Tesla horizontally
+          objectPosition: 'center', // Center all logos vertically and horizontally
           // Crop Tesla to show only top 60% (symbol part, hide text below)
           clipPath: logo.cropTop ? 'inset(0 0 40% 0)' : 'none',
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
