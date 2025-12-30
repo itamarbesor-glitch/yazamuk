@@ -64,7 +64,7 @@ export default function Home() {
       <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8 sm:mb-12 animate-fade-in">
+          <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
             <Logo size="lg" />
             <a
               href="/login"
@@ -72,6 +72,18 @@ export default function Home() {
             >
               Sign In
             </a>
+          </div>
+
+          {/* Beta Disclaimer */}
+          <div className="mb-6 sm:mb-8 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl animate-fade-in">
+            <div className="flex items-start gap-2.5 sm:gap-3">
+              <div className="text-lg sm:text-xl flex-shrink-0">⚠️</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm text-amber-300 leading-relaxed">
+                  <strong className="font-semibold">Beta Version:</strong> This is a beta testing environment. All transactions use play money (Alpaca Sandbox) and are not real. No actual funds are involved.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Hero Section */}

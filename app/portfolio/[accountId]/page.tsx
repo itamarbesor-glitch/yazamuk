@@ -224,6 +224,18 @@ export default function PortfolioPage() {
       </div>
 
       <div className="relative max-w-6xl mx-auto">
+        {/* Beta Disclaimer */}
+        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+          <div className="flex items-start gap-2.5 sm:gap-3">
+            <div className="text-base sm:text-lg flex-shrink-0">⚠️</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs sm:text-sm text-amber-300 leading-relaxed">
+                <strong className="font-semibold">Beta Version:</strong> This is a beta testing environment using Alpaca Sandbox. All money shown is play money and not real. No actual funds are involved.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
