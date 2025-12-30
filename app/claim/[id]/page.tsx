@@ -175,10 +175,7 @@ export default function ClaimPage() {
                   alt={gift.stockSymbol}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-xl sm:text-2xl md:text-3xl px-5 py-2 sm:px-6 sm:py-3 rounded-full shadow-2xl">
-                  {gift.stockSymbol}
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent p-4 sm:p-6 md:p-8">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
                   <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
                     You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
                   </p>
