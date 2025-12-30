@@ -3,11 +3,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import Logo from '@/components/Logo'
 
 const STOCKS = [
-  { symbol: 'TSLA', name: 'Tesla', color: 'from-red-500 to-pink-500' },
-  { symbol: 'AAPL', name: 'Apple', color: 'from-gray-500 to-gray-700' },
-  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-green-500 to-emerald-500' },
+  { symbol: 'TSLA', name: 'Tesla', color: 'from-red-500 to-orange-500', icon: '🚗' },
+  { symbol: 'AAPL', name: 'Apple', color: 'from-gray-400 to-gray-600', icon: '🍎' },
+  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-green-400 to-emerald-600', icon: '💚' },
 ]
 
 export default function Home() {
@@ -53,135 +54,213 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black">
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-              Yazamuk
-            </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Background decoration */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8 sm:mb-12 animate-fade-in">
+            <Logo size="lg" />
             <a
               href="/login"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm sm:text-base"
+              className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
             >
-              Login
+              Sign In
             </a>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-8 sm:mb-12">
-            Gift stocks to your friends
-          </p>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Hero Section */}
+          <div className="mb-8 sm:mb-12 animate-slide-up">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                Gift Stocks
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-mint-400 via-mint-500 to-mint-600 bg-clip-text text-transparent">
+                Made Simple
+              </span>
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-400 max-w-xl leading-relaxed">
+              Send the perfect gift. Your friends receive real stocks they can track, hold, or sell—all in minutes.
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <div className="glass rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl animate-slide-up">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Sender Info */}
+              <div>
+                <h2 className="text-lg font-semibold text-white mb-4">Your Information</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.senderName}
+                      onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      placeholder="John Doe"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Your Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.senderMobile}
+                      onChange={(e) => setFormData({ ...formData, senderMobile: e.target.value })}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      placeholder="+1234567890"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">Include country code (e.g., +1 for US)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Receiver Info */}
+              <div>
+                <h2 className="text-lg font-semibold text-white mb-4">Recipient Information</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Recipient Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.receiverName}
+                      onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      placeholder="Jane Smith"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Recipient Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.receiverMobile}
+                      onChange={(e) => setFormData({ ...formData, receiverMobile: e.target.value })}
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      placeholder="+1234567890"
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">They'll receive a WhatsApp message</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Amount */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Name
+                  Gift Amount
                 </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.senderName}
-                  onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
-                  placeholder="John Doe"
-                />
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg font-semibold">$</span>
+                  <input
+                    type="number"
+                    required
+                    min="1"
+                    step="0.01"
+                    value={formData.amount}
+                    onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                    className="w-full pl-8 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                    placeholder="100.00"
+                  />
+                </div>
               </div>
 
+              {/* Stock Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Your Mobile Number
+                <label className="block text-sm font-medium text-gray-300 mb-4">
+                  Choose a Stock
                 </label>
-                <input
-                  type="tel"
-                  required
-                  value={formData.senderMobile}
-                  onChange={(e) => setFormData({ ...formData, senderMobile: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
-                  placeholder="+1234567890"
-                />
-                <p className="text-xs text-gray-500 mt-1">Include country code (e.g., +1 for US)</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {STOCKS.map((stock) => (
+                    <button
+                      key={stock.symbol}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, stockSymbol: stock.symbol })}
+                      className={`group relative p-5 rounded-xl border-2 transition-all card-hover ${
+                        formData.stockSymbol === stock.symbol
+                          ? 'border-mint-500 bg-gradient-to-br ' + stock.color + ' shadow-lg shadow-mint-500/30 scale-105'
+                          : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
+                      }`}
+                    >
+                      <div className="text-2xl mb-2">{stock.icon}</div>
+                      <div className="text-xl font-bold text-white mb-1">{stock.symbol}</div>
+                      <div className="text-xs text-gray-400">{stock.name}</div>
+                      {formData.stockSymbol === stock.symbol && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 text-mint-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-mint-500/30 text-base"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Creating Gift...
+                  </span>
+                ) : (
+                  'Create Gift'
+                )}
+              </button>
+            </form>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="mt-8 sm:mt-12 text-center animate-fade-in">
+            <p className="text-sm text-gray-500 mb-4">Trusted by investors worldwide</p>
+            <div className="flex items-center justify-center gap-6 text-xs text-gray-600">
+              <div className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-mint-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-mint-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                  <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                </svg>
+                <span>Real Stocks</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-mint-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                </svg>
+                <span>Instant</span>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Receiver Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.receiverName}
-                  onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
-                  placeholder="Jane Smith"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Receiver Mobile Number
-                </label>
-                <input
-                  type="tel"
-                  required
-                  value={formData.receiverMobile}
-                  onChange={(e) => setFormData({ ...formData, receiverMobile: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
-                  placeholder="+1234567890"
-                />
-                <p className="text-xs text-gray-500 mt-1">They'll receive a WhatsApp message</p>
-              </div>
-            </div>
-
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Gift Amount ($)
-              </label>
-              <input
-                type="number"
-                required
-                min="1"
-                step="0.01"
-                value={formData.amount}
-                onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
-                placeholder="100.00"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-4">
-                Select Stock
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                {STOCKS.map((stock) => (
-                  <button
-                    key={stock.symbol}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, stockSymbol: stock.symbol })}
-                    className={`p-4 sm:p-6 rounded-xl border-2 transition-all transform hover:scale-105 ${
-                      formData.stockSymbol === stock.symbol
-                        ? 'border-cyan-400 bg-gradient-to-br ' + stock.color + ' shadow-lg shadow-cyan-500/50'
-                        : 'border-gray-700 bg-gray-900 hover:border-gray-600'
-                    }`}
-                  >
-                    <div className="text-xl sm:text-2xl font-bold mb-1">{stock.symbol}</div>
-                    <div className="text-xs sm:text-sm text-gray-400">{stock.name}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isSubmitting ? 'Processing...' : 'Create Gift'}
-            </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>

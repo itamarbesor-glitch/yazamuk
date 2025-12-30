@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Yazamuk - Stock Gifting Platform",
-  description: "Gift stocks to your friends",
+  title: "Mintbox - Gift Stocks to Friends",
+  description: "The modern way to gift stocks. Send the perfect present with Mintbox.",
   viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 

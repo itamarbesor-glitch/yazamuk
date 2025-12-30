@@ -162,19 +162,25 @@ export default function ClaimPage() {
   // Show amazing loading view when claiming
   if (isClaiming) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4 py-6">
-        <div className="max-w-2xl w-full">
-          <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-6">
+        {/* Background decoration */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative max-w-2xl w-full">
+          <div className="glass rounded-xl overflow-hidden shadow-2xl">
             {/* Stock Image - Full Width Hero */}
             {stockImage && (
-              <div className="relative w-full h-56 sm:h-64 md:h-80 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+              <div className="relative w-full h-56 sm:h-64 md:h-80 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
                 <img 
                   src={stockImage} 
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-12 sm:pt-16 md:pt-20 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pt-12 sm:pt-16 md:pt-20 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-mint-400 mb-1 sm:mb-2">
                     Congratulations! 🎉
                   </h2>
                   <p className="text-sm sm:text-base md:text-lg font-semibold text-white leading-tight">
@@ -207,7 +213,7 @@ export default function ClaimPage() {
                 {/* Loading Steps */}
                 <div className="space-y-2.5 sm:space-y-3 text-left max-w-md mx-auto">
                   <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
-                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500 flex items-center justify-center mt-0.5 sm:mt-0">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-mint-500 flex items-center justify-center mt-0.5 sm:mt-0">
                       <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
@@ -216,8 +222,8 @@ export default function ClaimPage() {
                   </div>
                   
                   <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
-                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500/50 flex items-center justify-center mt-0.5 sm:mt-0">
-                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-mint-500/50 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-mint-400 animate-pulse"></div>
                     </div>
                     <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed">Activating your account...</p>
                   </div>
@@ -249,13 +255,19 @@ export default function ClaimPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 sm:py-12 md:py-16 px-4">
+      {/* Background decoration */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-2xl mx-auto">
         <div className="mb-6 sm:mb-8 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             You received a gift! 🎁
           </h1>
-          <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden mb-4 sm:mb-6">
+          <div className="glass rounded-xl overflow-hidden mb-4 sm:mb-6 shadow-xl">
             {/* Stock Image - Full Width Hero */}
             {stockImage && (
               <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
@@ -264,11 +276,11 @@ export default function ClaimPage() {
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
                   <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
-                    You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
+                    You received a gift from <span className="text-mint-400">{gift.senderName}</span>
                   </p>
-                  <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400">
+                  <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint-400">
                     ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
                   </p>
                 </div>
@@ -306,7 +318,7 @@ export default function ClaimPage() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6">
+        <form onSubmit={handleSubmit} className="glass rounded-xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6 shadow-xl">
           <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6">Account Information</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
@@ -459,7 +471,7 @@ export default function ClaimPage() {
                   minLength={6}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
                   placeholder="At least 6 characters (optional for existing users)"
                 />
               </div>
@@ -472,7 +484,7 @@ export default function ClaimPage() {
                   type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
                   placeholder="Re-enter your password"
                 />
               </div>
@@ -482,7 +494,7 @@ export default function ClaimPage() {
           <button
             type="submit"
             disabled={isClaiming}
-            className="w-full py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+            className="w-full py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98] shadow-lg shadow-mint-500/30"
           >
             {isClaiming ? 'Processing...' : 'Claim Gift'}
           </button>

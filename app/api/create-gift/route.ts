@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: receiverMobile,
-        message: `🎁 You received a gift from ${senderName}! via Yazamuk 📈\n\n${senderName} gifted you $${amount} worth of ${stockSymbol} stock!\n\nClaim your gift here: ${claimUrl}`,
+        message: `🎁 You received a gift from ${senderName}! via Mintbox 📈\n\n${senderName} gifted you $${amount} worth of ${stockSymbol} stock!\n\nClaim your gift here: ${claimUrl}`,
         mediaUrl: imageUrl,
       }),
     })

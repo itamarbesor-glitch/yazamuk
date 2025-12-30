@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
+import Logo from '@/components/Logo'
 
 interface Gift {
   senderName: string
@@ -37,46 +38,59 @@ export default function SuccessPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4">
-        <div className="text-cyan-400 text-xl">Loading...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4">
+        <div className="text-mint-400 text-xl">Loading...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4 py-8">
-      <div className="max-w-md w-full bg-gray-900 border border-gray-700 rounded-2xl p-6 sm:p-8 text-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-8">
+      {/* Background decoration */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-md w-full glass rounded-2xl p-8 sm:p-10 text-center shadow-2xl animate-fade-in">
+        {/* Logo */}
+        <div className="mb-6 flex justify-center">
+          <Logo size="md" />
+        </div>
+
+        {/* Success Icon */}
         <div className="mb-6">
-          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-20 h-20 bg-gradient-to-br from-mint-400 to-mint-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-mint-500/30">
             <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Gift Created!
           </h1>
-          <p className="text-gray-400 mb-4 text-sm sm:text-base">
-            Your gift has been successfully created
+          <p className="text-gray-400 text-sm sm:text-base">
+            Your gift has been successfully sent
           </p>
         </div>
 
-        <div className="mb-6 p-4 sm:p-6 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl">
-          <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📱</div>
-          <p className="text-gray-300 text-base sm:text-lg mb-2">
+        {/* Gift Details */}
+        <div className="mb-6 p-5 bg-gradient-to-r from-mint-500/10 to-purple-500/10 border border-mint-500/30 rounded-xl">
+          <div className="text-4xl mb-3">📱</div>
+          <p className="text-gray-200 text-base sm:text-lg mb-2 font-medium">
             {gift ? (
               <>
-                <span className="text-cyan-400 font-semibold">{gift.receiverName}</span> will receive a WhatsApp message
+                <span className="text-mint-400 font-semibold">{gift.receiverName}</span> will receive a WhatsApp message
               </>
             ) : (
               'Your friend will receive a WhatsApp message'
             )}
           </p>
-          <p className="text-gray-400 text-xs sm:text-sm">
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
             {gift ? (
               <>
-                We&apos;ve sent <span className="text-cyan-400 font-semibold">{gift.receiverName}</span> a WhatsApp message with a link to claim their gift of{' '}
-                <span className="text-green-400 font-semibold">${gift.amount}</span> worth of{' '}
-                <span className="text-cyan-400 font-semibold">{gift.stockSymbol}</span> stock.
+                We&apos;ve sent <span className="text-mint-400 font-semibold">{gift.receiverName}</span> a WhatsApp message with a link to claim their gift of{' '}
+                <span className="text-mint-400 font-semibold">${gift.amount.toFixed(2)}</span> worth of{' '}
+                <span className="text-mint-400 font-semibold">{gift.stockSymbol}</span> stock.
               </>
             ) : (
               'We&apos;ve sent your friend a WhatsApp message with a link to claim their gift.'
@@ -84,18 +98,22 @@ export default function SuccessPage() {
           </p>
         </div>
 
-        <div className="mb-6 p-3 sm:p-4 bg-gray-800 rounded-lg">
-          <p className="text-xs sm:text-sm text-gray-400">
+        {/* Info Box */}
+        <div className="mb-6 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
+          <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
             💡 Your friend will receive the WhatsApp message shortly. They can click the link in the message to claim their gift and set up their account.
           </p>
         </div>
 
-        <a
-          href="/"
-          className="inline-block px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-105 text-sm sm:text-base"
-        >
-          Create another gift
-        </a>
+        {/* Actions */}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href="/"
+            className="flex-1 px-6 py-3 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-lg shadow-mint-500/30"
+          >
+            Create Another Gift
+          </a>
+        </div>
       </div>
     </div>
   )
