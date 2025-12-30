@@ -166,43 +166,56 @@ export default function ClaimPage() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
             You received a gift! 🎁
           </h1>
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
-            {/* Stock Image */}
+          <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden mb-4 sm:mb-6">
+            {/* Stock Image - Full Width Hero */}
             {stockImage && (
-              <div className="mb-6 flex justify-center items-center w-full">
-                <div className="relative inline-block">
-                  <img 
-                    src={stockImage} 
-                    alt={gift.stockSymbol}
-                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain rounded-lg shadow-lg mx-auto"
-                  />
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-base sm:text-lg px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">
-                    {gift.stockSymbol}
-                  </div>
+              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900">
+                <img 
+                  src={stockImage} 
+                  alt={gift.stockSymbol}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-xl sm:text-2xl md:text-3xl px-5 py-2 sm:px-6 sm:py-3 rounded-full shadow-2xl">
+                  {gift.stockSymbol}
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent p-4 sm:p-6 md:p-8">
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
+                    You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
+                  </p>
+                  <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400">
+                    ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
+                  </p>
                 </div>
               </div>
             )}
             
-            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
-              You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
-            </p>
-            <p className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4 sm:mb-6">
-              ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
-            </p>
-            <div className="space-y-2 sm:space-y-3">
-              <p className="text-gray-300 text-base sm:text-lg">
-                Complete the form below to claim your gift
-              </p>
-              <p className="text-gray-400 text-xs sm:text-sm">
-                Already have an account?{' '}
-                <a 
-                  href="/login" 
-                  className="text-cyan-400 hover:text-cyan-300 underline font-medium"
-                >
-                  Log in to your profile
-                </a>
-                {' '}to claim this gift
-              </p>
+            {/* Content below image */}
+            <div className="p-4 sm:p-6 md:p-8">
+              {!stockImage && (
+                <>
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
+                    You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-4 sm:mb-6">
+                    ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
+                  </p>
+                </>
+              )}
+              <div className="space-y-2 sm:space-y-3">
+                <p className="text-gray-300 text-base sm:text-lg">
+                  Complete the form below to claim your gift
+                </p>
+                <p className="text-gray-400 text-xs sm:text-sm">
+                  Already have an account?{' '}
+                  <a 
+                    href="/login" 
+                    className="text-cyan-400 hover:text-cyan-300 underline font-medium"
+                  >
+                    Log in to your profile
+                  </a>
+                  {' '}to claim this gift
+                </p>
+              </div>
             </div>
           </div>
         </div>
