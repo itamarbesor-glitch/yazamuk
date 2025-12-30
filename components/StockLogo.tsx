@@ -12,29 +12,19 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
 
   const sizeClass = sizes[size]
 
-  // Apple logo uses SVG (was working correctly)
-  if (symbol === 'AAPL') {
-    return (
-      <div className={`${sizeClass} flex items-center justify-center text-mint-400`}>
-        <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-          <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-        </svg>
-      </div>
-    )
-  }
-
-  // Tesla and NVIDIA use image files with mint color filter
-  const logos: { [key: string]: { src: string; alt: string; scale?: number; cropTop?: boolean } } = {
+  // All logos use the new clean images with mint color filter
+  const logos: { [key: string]: { src: string; alt: string } } = {
     TSLA: {
-      src: '/images/logos/tesla.png',
+      src: '/images/logos/tesla-new.png',
       alt: 'Tesla Logo',
-      cropTop: true, // Crop to show only the T symbol, not the TESLA text
+    },
+    AAPL: {
+      src: '/images/logos/apple-new.png',
+      alt: 'Apple Logo',
     },
     NVDA: {
-      src: '/images/logos/nvidia.png',
+      src: '/images/logos/nvidia-new.png',
       alt: 'NVIDIA Logo',
-      // No scaling - keep same size as others
-      // No cropping - show full logo
     },
   }
 
@@ -48,17 +38,11 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
     )
   }
 
-  const baseWidth = size === 'sm' ? 32 : size === 'md' ? 48 : 64
-  const baseHeight = size === 'sm' ? 32 : size === 'md' ? 48 : 64
-  const scale = logo.scale || 1
-  const imgWidth = baseWidth * scale
-  const imgHeight = baseHeight * scale
-
   return (
     <div 
       className={`${sizeClass} flex items-center justify-center relative`}
       style={{ 
-        overflow: logo.cropTop ? 'hidden' : 'visible',
+        overflow: 'hidden',
       }}
     >
       <img
@@ -66,9 +50,8 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         alt={logo.alt}
         className="w-full h-full object-contain"
         style={{
-          objectPosition: 'center', // Center all logos vertically and horizontally
-          // Crop Tesla to show only top 60% (symbol part, hide text below)
-          clipPath: logo.cropTop ? 'inset(0 0 40% 0)' : 'none',
+          objectPosition: 'center',
+          // Remove white background and apply mint color
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
