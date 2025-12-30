@@ -22,15 +22,15 @@ export default function ClaimPage() {
   const [loading, setLoading] = useState(true)
   const [isClaiming, setIsClaiming] = useState(false)
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    firstName: 'John',
+    lastName: 'Doe',
     email: '',
-    dateOfBirth: '',
-    taxId: '',
-    streetAddress: '',
-    city: '',
-    state: '',
-    zipCode: '',
+    dateOfBirth: '1990-01-01',
+    taxId: '123-45-6789',
+    streetAddress: '123 Main Street',
+    city: 'New York',
+    state: 'NY',
+    zipCode: '10001',
     password: '',
     confirmPassword: '',
   })

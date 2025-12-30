@@ -32,6 +32,17 @@ export default function Home() {
       return
     }
 
+    const amount = parseFloat(formData.amount)
+    if (isNaN(amount) || amount < 1) {
+      alert('Please enter a valid amount (minimum $1)')
+      return
+    }
+
+    if (amount > 500) {
+      alert('Beta limit: Maximum gift amount is $500. Please enter a lower amount.')
+      return
+    }
+
     setIsSubmitting(true)
     try {
       const response = await axios.post('/api/create-gift', {
@@ -178,7 +189,7 @@ export default function Home() {
               {/* Amount */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Gift Amount
+                  Gift Amount (Max $500 for Beta)
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg font-semibold">$</span>
@@ -186,13 +197,23 @@ export default function Home() {
                     type="number"
                     required
                     min="1"
+                    max="500"
                     step="0.01"
                     value={formData.amount}
-                    onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                    onChange={(e) => {
+                      const value = e.target.value
+                      // Only allow values up to 500
+                      if (value === '' || (parseFloat(value) >= 1 && parseFloat(value) <= 500)) {
+                        setFormData({ ...formData, amount: value })
+                      }
+                    }}
                     className="w-full pl-8 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
                     placeholder="100.00"
                   />
                 </div>
+                <p className="text-xs text-gray-500 mt-1.5">
+                  Beta limit: Maximum $500 per gift
+                </p>
               </div>
 
               {/* Stock Selection */}
