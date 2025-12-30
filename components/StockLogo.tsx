@@ -32,7 +32,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
     NVDA: {
       src: '/images/logos/nvidia.png',
       alt: 'NVIDIA Logo',
-      scale: 2, // Make NVIDIA logo larger
+      scale: 3, // Make NVIDIA logo much larger
     },
   }
 
@@ -53,7 +53,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const imgHeight = baseHeight * scale
 
   return (
-    <div className={`${sizeClass} flex items-center justify-center relative overflow-visible`}>
+    <div className={`${sizeClass} flex items-center justify-center relative`} style={{ overflow: 'visible' }}>
       <img
         src={logo.src}
         alt={logo.alt}
@@ -63,6 +63,8 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         style={{
           width: scale !== 1 ? `${100 * scale}%` : '100%',
           height: scale !== 1 ? `${100 * scale}%` : '100%',
+          maxWidth: 'none',
+          maxHeight: 'none',
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
