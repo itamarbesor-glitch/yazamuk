@@ -254,7 +254,7 @@ export default function PortfolioPage() {
               <div className="flex-1 min-w-0">
                 <h2 className="text-lg sm:text-xl font-bold text-cyan-400 mb-2">Welcome to Your Portfolio!</h2>
                 <p className="text-gray-300 mb-3">
-                  Your gift has been received and your account is being set up. Here's what's happening:
+                  Your gift has been received and your account has been set up! Here's what's happening:
                 </p>
                 <ul className="list-disc list-inside text-gray-400 space-y-1 mb-4">
                   <li><span className="text-yellow-400">Pending Orders</span> - Your buy order is being processed by the market</li>
