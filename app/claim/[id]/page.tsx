@@ -159,6 +159,95 @@ export default function ClaimPage() {
   
   const stockImage = stockImageMap[gift.stockSymbol] || null
 
+  // Show amazing loading view when claiming
+  if (isClaiming) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4">
+        <div className="max-w-2xl w-full">
+          <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+            {/* Stock Image - Full Width Hero */}
+            {stockImage && (
+              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                <img 
+                  src={stockImage} 
+                  alt={gift.stockSymbol}
+                  className="w-full h-full object-contain"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 mb-2">
+                    Congratulations! 🎉
+                  </h2>
+                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
+                    We're creating your account and buying your {gift.stockSymbol} stock!
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            {/* Loading Content */}
+            <div className="p-6 sm:p-8 md:p-10 text-center">
+              <div className="mb-6 sm:mb-8">
+                {/* Animated Loader */}
+                <div className="flex justify-center mb-6">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+                    {/* Outer spinning ring */}
+                    <div className="absolute inset-0 border-4 border-cyan-500/20 rounded-full"></div>
+                    <div className="absolute inset-0 border-4 border-transparent border-t-cyan-400 border-r-pink-400 rounded-full animate-spin"></div>
+                    
+                    {/* Inner pulsing circle */}
+                    <div className="absolute inset-4 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-full animate-pulse"></div>
+                    
+                    {/* Center icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-2xl sm:text-3xl">📈</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Loading Steps */}
+                <div className="space-y-3 sm:space-y-4 text-left max-w-md mx-auto">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-300 text-sm sm:text-base">Setting up your Alpaca account...</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/50 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                    </div>
+                    <p className="text-gray-400 text-sm sm:text-base">Activating your account...</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                    </div>
+                    <p className="text-gray-500 text-sm sm:text-base">Transferring ${gift.amount.toFixed(2)} to your account...</p>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                    </div>
+                    <p className="text-gray-500 text-sm sm:text-base">Purchasing {gift.stockSymbol} stock...</p>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-400 text-xs sm:text-sm">
+                This usually takes 10-20 seconds. Please don't close this page!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-2xl mx-auto">
