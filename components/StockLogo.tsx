@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 interface StockLogoProps {
   symbol: string
   size?: 'sm' | 'md' | 'lg'
