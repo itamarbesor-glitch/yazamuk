@@ -308,19 +308,87 @@ export default function PortfolioPage() {
           </div>
         )}
 
-        {/* Status Explanation */}
+        {/* Detailed Status Explanation */}
         {openOrders.length > 0 && (
-          <div className="mb-4 sm:mb-6 glass rounded-xl p-3 sm:p-4">
-            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
-              <span className="text-mint-400 font-semibold">📊 Current Status:</span> You have {openOrders.length} active order{openOrders.length > 1 ? 's' : ''} being processed. Once filled, your stock will appear in "Your Holdings" below. Market orders typically fill within seconds.
-            </p>
+          <div className="mb-4 sm:mb-6 glass rounded-xl p-4 sm:p-5 shadow-xl">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="text-xl sm:text-2xl flex-shrink-0">📊</div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-2">Order Status</h3>
+                <div className="space-y-2">
+                  {openOrders.map((order) => {
+                    const filledQty = parseFloat(order.filled_qty || '0')
+                    const totalQty = parseFloat(order.qty || '0')
+                    const fillPercentage = totalQty > 0 ? (filledQty / totalQty) * 100 : 0
+                    const isFilled = order.status.toLowerCase() === 'filled' || order.status.toLowerCase() === 'done_for_day'
+                    const isPartiallyFilled = order.status.toLowerCase() === 'partially_filled'
+                    
+                    return (
+                      <div key={order.id} className="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base sm:text-lg font-bold text-white">{order.symbol}</span>
+                            <span className={`px-2 py-0.5 rounded text-xs font-semibold ${
+                              order.side === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                            }`}>
+                              {order.side.toUpperCase()}
+                            </span>
+                          </div>
+                          <span className={`text-xs sm:text-sm font-semibold ${getStatusColor(order.status)}`}>
+                            {getStatusLabel(order.status)}
+                          </span>
+                        </div>
+                        
+                        <div className="space-y-1.5 text-xs sm:text-sm">
+                          <div className="flex justify-between text-gray-300">
+                            <span>Order Amount:</span>
+                            <span className="font-semibold text-white">{formatCurrency(order.notional || '0')}</span>
+                          </div>
+                          
+                          {isPartiallyFilled && (
+                            <div className="flex justify-between text-gray-300">
+                              <span>Progress:</span>
+                              <span className="font-semibold text-mint-400">
+                                {formatNumber(filledQty)} / {formatNumber(totalQty)} shares ({fillPercentage.toFixed(0)}%)
+                              </span>
+                            </div>
+                          )}
+                          
+                          {isFilled ? (
+                            <div className="flex items-center gap-2 text-green-400">
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                              </svg>
+                              <span className="font-semibold">Order Completed! Stock is now in your holdings.</span>
+                            </div>
+                          ) : isPartiallyFilled ? (
+                            <div className="flex items-center gap-2 text-yellow-400">
+                              <div className="w-4 h-4 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+                              <span>Partially filled. Order is still processing...</span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-2 text-blue-400">
+                              <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+                              <span>Order is being processed by the market. This usually takes a few seconds.</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <p className="text-xs sm:text-sm text-gray-400 mt-3 leading-relaxed">
+                  💡 Once your order is filled, the stock will automatically appear in "Your Holdings" below. This page refreshes every 5 seconds.
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Open Orders Section */}
+        {/* Open Orders Section - Detailed Table */}
         {openOrders.length > 0 && (
           <div className="mb-4 sm:mb-6 md:mb-8">
-            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-white">Active Orders</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-white">Active Orders Details</h2>
             <div className="glass rounded-xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
@@ -358,8 +426,17 @@ export default function PortfolioPage() {
                           <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-white font-semibold text-xs sm:text-sm md:text-base">
                             {formatCurrency(order.notional || '0')}
                           </td>
-                          <td className={`px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right font-semibold text-xs sm:text-sm ${getStatusColor(order.status)}`}>
-                            {getStatusLabel(order.status)}
+                          <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4">
+                            <div className="flex flex-col items-end gap-1">
+                              <span className={`font-semibold text-xs sm:text-sm ${getStatusColor(order.status)}`}>
+                                {getStatusLabel(order.status)}
+                              </span>
+                              {order.status.toLowerCase() === 'partially_filled' && (
+                                <span className="text-xs text-gray-500">
+                                  {((parseFloat(order.filled_qty || '0') / parseFloat(order.qty || '1')) * 100).toFixed(0)}% filled
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-gray-400 text-xs sm:text-sm hidden md:table-cell">
                             {formatDate(order.submitted_at)}
