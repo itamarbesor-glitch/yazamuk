@@ -50,7 +50,9 @@ export async function POST(request: NextRequest) {
     console.log('📤 Sending to Twilio:', {
       from: formattedFrom,
       to: formattedTo,
+      originalTo: to,
       messagePreview: message.substring(0, 50) + '...',
+      phoneNumberFormat: 'Make sure phone number includes country code (e.g., +1234567890)',
     })
 
     // Send WhatsApp message via Twilio
@@ -63,14 +65,28 @@ export async function POST(request: NextRequest) {
     
     // Add media URL if provided (for images)
     // Note: Twilio requires publicly accessible URLs (not localhost)
+    // WhatsApp sandbox has restrictions on media - may need to skip for testing
     if (mediaUrl) {
       // Validate that URL is publicly accessible
       if (mediaUrl.includes('localhost') || mediaUrl.includes('127.0.0.1')) {
         console.warn('⚠️ Media URL is localhost - Twilio cannot access it. Skipping media.')
         console.warn('   For production, use a publicly accessible URL or CDN.')
       } else {
-        formData.append('MediaUrl', mediaUrl)
-        console.log('📷 Adding media to message:', mediaUrl)
+        // Validate URL format
+        try {
+          const url = new URL(mediaUrl)
+          if (!['http:', 'https:'].includes(url.protocol)) {
+            console.warn('⚠️ Media URL must use http or https protocol. Skipping media.')
+          } else {
+            // For WhatsApp sandbox, media might cause issues - log but try anyway
+            console.log('📷 Adding media to message:', mediaUrl)
+            console.log('⚠️ Note: WhatsApp sandbox may reject media. If you get error 63021, try without image.')
+            formData.append('MediaUrl', mediaUrl)
+          }
+        } catch (urlError) {
+          console.warn('⚠️ Invalid media URL format. Skipping media:', mediaUrl)
+          console.warn('   Error:', urlError)
+        }
       }
     }
 
@@ -112,12 +128,26 @@ export async function POST(request: NextRequest) {
     console.log('✅ WhatsApp message sent successfully!', {
       messageSid: data.sid,
       status: data.status,
+      to: formattedTo,
+      from: formattedFrom,
+      twilioConsoleUrl: `https://console.twilio.com/us1/monitor/logs/messaging?msgSid=${data.sid}`,
     })
+
+    // Log important troubleshooting info
+    if (data.status === 'queued') {
+      console.log('ℹ️ Message is queued. Check delivery status in Twilio Console:')
+      console.log(`   https://console.twilio.com/us1/monitor/logs/messaging?msgSid=${data.sid}`)
+      console.log('ℹ️ If message fails to deliver, common reasons:')
+      console.log('   1. Recipient has not joined WhatsApp sandbox')
+      console.log('   2. Phone number format incorrect (must include country code)')
+      console.log('   3. Phone number not registered on WhatsApp')
+    }
 
     return NextResponse.json({
       success: true,
       messageSid: data.sid,
       status: data.status,
+      twilioConsoleUrl: `https://console.twilio.com/us1/monitor/logs/messaging?msgSid=${data.sid}`,
     })
   } catch (error: any) {
     console.error('Error sending WhatsApp message:', error)

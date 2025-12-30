@@ -58,9 +58,17 @@ export async function POST(request: NextRequest) {
     
     // Only include image URL if it's publicly accessible (not localhost)
     // Twilio cannot access localhost URLs
-    const imageUrl = stockImageMap[stockSymbol] && !baseUrl.includes('localhost') 
-      ? stockImageMap[stockSymbol] 
-      : null
+    // Note: WhatsApp sandbox may have restrictions on media - if you get error 63021, 
+    // the image might be the issue. We'll try to send it, but it may fail.
+    
+    // TEMPORARY: Disable images to test if that's causing the 63021 error
+    // TODO: Re-enable images once we verify the issue is fixed
+    const imageUrl = null
+    
+    // Original code (commented out for testing):
+    // const imageUrl = stockImageMap[stockSymbol] && !baseUrl.includes('localhost') 
+    //   ? stockImageMap[stockSymbol] 
+    //   : null
     
     // Send WhatsApp message asynchronously (don't block gift creation)
     console.log('📱 Attempting to send WhatsApp message...')
