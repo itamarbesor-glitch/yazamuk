@@ -169,11 +169,11 @@ export default function ClaimPage() {
           <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden mb-4 sm:mb-6">
             {/* Stock Image - Full Width Hero */}
             {stockImage && (
-              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900">
+              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
                 <img 
                   src={stockImage} 
                   alt={gift.stockSymbol}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
                   <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
