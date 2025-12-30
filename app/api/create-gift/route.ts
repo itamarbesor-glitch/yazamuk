@@ -39,13 +39,6 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     const claimUrl = `${baseUrl}/claim/${gift.id}`
     
-    console.log('📱 WhatsApp setup:', {
-      baseUrl,
-      claimUrl,
-      receiverMobile,
-      hasImage: !!imageUrl,
-    })
-    
     // Map stock symbols to image URLs
     // Images should be in /public/images/ folder or hosted publicly
     // Note: For Twilio to access images, URLs must be publicly accessible (not localhost)
@@ -71,6 +64,12 @@ export async function POST(request: NextRequest) {
     //   : null
     
     // Send WhatsApp message asynchronously (don't block gift creation)
+    console.log('📱 WhatsApp setup:', {
+      baseUrl,
+      claimUrl,
+      receiverMobile,
+      hasImage: !!imageUrl,
+    })
     console.log('📱 Attempting to send WhatsApp message...')
     console.log('Receiver mobile:', receiverMobile)
     console.log('Claim URL:', claimUrl)
