@@ -412,20 +412,20 @@ export default function PortfolioPage() {
             </div>
           ) : (
           <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
-            <div className="overflow-x-auto -mx-4 sm:mx-0">
-              <div className="inline-block min-w-full align-middle">
-                <table className="min-w-full divide-y divide-gray-700">
-                  <thead className="bg-gray-800 border-b border-gray-700">
-                    <tr>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden sm:table-cell">Price</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Value</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Cost</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L</th>
-                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L %</th>
-                    </tr>
-                  </thead>
+              <div className="overflow-x-auto">
+                <div className="inline-block min-w-full align-middle">
+                  <table className="min-w-full divide-y divide-slate-700">
+                    <thead className="bg-slate-800/50 border-b border-slate-700">
+                      <tr>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden sm:table-cell">Price</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">Value</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Cost</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L</th>
+                        <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L %</th>
+                      </tr>
+                    </thead>
                     <tbody className="divide-y divide-slate-700">
                       {positions.map((position, index) => {
                         const unrealizedPL = parseFloat(position.unrealized_pl || '0')
