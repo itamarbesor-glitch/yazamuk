@@ -43,20 +43,20 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       className={`${sizeClass} flex items-center justify-center relative`}
       style={{ 
         overflow: 'hidden',
+        backgroundColor: 'transparent',
       }}
     >
       <div
         className="w-full h-full"
         style={{
-          maskImage: `url(${logo.src})`,
-          maskSize: 'contain',
-          maskRepeat: 'no-repeat',
-          maskPosition: 'center',
-          WebkitMaskImage: `url(${logo.src})`,
-          WebkitMaskSize: 'contain',
-          WebkitMaskRepeat: 'no-repeat',
-          WebkitMaskPosition: 'center',
-          backgroundColor: '#5eead4', // mint-400 color
+          backgroundImage: `url(${logo.src})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          // Convert black parts to mint color, white stays transparent
+          filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
+          // Use mix-blend-mode to make white areas transparent
+          mixBlendMode: 'multiply',
         }}
       />
     </div>
