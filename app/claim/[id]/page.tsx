@@ -179,7 +179,7 @@ export default function ClaimPage() {
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pt-12 sm:pt-16 md:pt-20 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/95 to-slate-950/80 pt-20 sm:pt-24 md:pt-28 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-mint-400 mb-1 sm:mb-2">
                     Congratulations! 🎉
                   </h2>
@@ -288,7 +288,7 @@ export default function ClaimPage() {
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/95 to-slate-950/80 pt-24 sm:pt-28 md:pt-32 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
                   <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
                     You received a gift from <span className="text-mint-400">{gift.senderName}</span>
                   </p>
