@@ -46,21 +46,25 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         backgroundColor: 'transparent',
       }}
     >
-      <img
-        src={logo.src}
-        alt={logo.alt}
-        className="w-full h-full object-contain"
+      <div
+        className="w-full h-full relative"
         style={{
-          objectPosition: 'center',
-          // Step 1: Make everything black (brightness(0))
-          // Step 2: Invert so black becomes white, white becomes black  
-          // Step 3: Apply mint color filter (this only affects the now-white logo parts)
-          // Step 4: Invert again to get mint logo on transparent
-          filter: 'brightness(0) invert(1) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%) invert(1)',
-          imageRendering: 'auto',
-          display: 'block',
+          backgroundImage: `url(${logo.src})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
         }}
-      />
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundColor: '#5eead4', // mint-400
+            mixBlendMode: 'multiply',
+            // Invert the image so black areas become the mint color
+            filter: 'invert(1)',
+          }}
+        />
+      </div>
     </div>
   )
 }
