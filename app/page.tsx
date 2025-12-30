@@ -4,11 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import Logo from '@/components/Logo'
+import StockLogo from '@/components/StockLogo'
 
 const STOCKS = [
-  { symbol: 'TSLA', name: 'Tesla', color: 'from-red-500 to-orange-500', icon: '🚗' },
-  { symbol: 'AAPL', name: 'Apple', color: 'from-gray-400 to-gray-600', icon: '🍎' },
-  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-green-400 to-emerald-600', icon: '💚' },
+  { symbol: 'TSLA', name: 'Tesla', color: 'from-red-500 to-orange-500' },
+  { symbol: 'AAPL', name: 'Apple', color: 'from-gray-400 to-gray-600' },
+  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-green-400 to-emerald-600' },
 ]
 
 export default function Home() {
@@ -233,7 +234,9 @@ export default function Home() {
                           : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
                       }`}
                     >
-                      <div className="text-2xl mb-2">{stock.icon}</div>
+                      <div className="mb-3 flex justify-center">
+                        <StockLogo symbol={stock.symbol} size="md" />
+                      </div>
                       <div className="text-xl font-bold text-white mb-1">{stock.symbol}</div>
                       <div className="text-xs text-gray-400">{stock.name}</div>
                       {formData.stockSymbol === stock.symbol && (

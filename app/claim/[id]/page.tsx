@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import axios from 'axios'
+import Logo from '@/components/Logo'
 
 interface Gift {
   id: string
@@ -274,8 +275,11 @@ export default function ClaimPage() {
         </div>
 
         <div className="mb-6 sm:mb-8 text-center">
+          <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
+            <Logo size="lg" />
+          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-            You received a gift! 🎁
+            You received a gift!
           </h1>
           <div className="glass rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 shadow-xl">
             <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
