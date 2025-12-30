@@ -235,7 +235,9 @@ export default function Home() {
                       }`}
                     >
                       <div className="mb-3 flex justify-center">
-                        <StockLogo symbol={stock.symbol} size="md" />
+                        <div className={`${formData.stockSymbol === stock.symbol ? 'text-white' : 'text-mint-400'}`}>
+                          <StockLogo symbol={stock.symbol} size="md" />
+                        </div>
                       </div>
                       <div className="text-xl font-bold text-white mb-1">{stock.symbol}</div>
                       <div className="text-xs text-gray-400">{stock.name}</div>
