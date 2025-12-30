@@ -169,14 +169,14 @@ export default function ClaimPage() {
           <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
             {/* Stock Image */}
             {stockImage && (
-              <div className="mb-6 flex justify-center">
-                <div className="relative">
+              <div className="mb-6 flex justify-center items-center w-full">
+                <div className="relative inline-block">
                   <img 
                     src={stockImage} 
                     alt={gift.stockSymbol}
-                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain rounded-lg shadow-lg"
+                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain rounded-lg shadow-lg mx-auto"
                   />
-                  <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-lg sm:text-xl px-3 py-1 rounded-full shadow-lg">
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-base sm:text-lg px-4 py-1.5 rounded-full shadow-lg whitespace-nowrap">
                     {gift.stockSymbol}
                   </div>
                 </div>
