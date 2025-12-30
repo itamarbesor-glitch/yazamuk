@@ -162,22 +162,22 @@ export default function ClaimPage() {
   // Show amazing loading view when claiming
   if (isClaiming) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black flex items-center justify-center px-4 py-6">
         <div className="max-w-2xl w-full">
           <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
             {/* Stock Image - Full Width Hero */}
             {stockImage && (
-              <div className="relative w-full h-64 sm:h-80 md:h-96 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+              <div className="relative w-full h-56 sm:h-64 md:h-80 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
                 <img 
                   src={stockImage} 
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-16 sm:pt-20 md:pt-24 pb-4 sm:pb-6 md:pb-8 px-4 sm:px-6 md:px-8">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-400 mb-2">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pt-12 sm:pt-16 md:pt-20 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-cyan-400 mb-1 sm:mb-2">
                     Congratulations! 🎉
                   </h2>
-                  <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
+                  <p className="text-sm sm:text-base md:text-lg font-semibold text-white leading-tight">
                     We're creating your account and buying your {gift.stockSymbol} stock!
                   </p>
                 </div>
@@ -185,60 +185,60 @@ export default function ClaimPage() {
             )}
             
             {/* Loading Content */}
-            <div className="p-6 sm:p-8 md:p-10 text-center">
-              <div className="mb-6 sm:mb-8">
+            <div className="p-4 sm:p-6 md:p-8 text-center">
+              <div className="mb-4 sm:mb-6">
                 {/* Animated Loader */}
-                <div className="flex justify-center mb-6">
-                  <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+                <div className="flex justify-center mb-4 sm:mb-6">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
                     {/* Outer spinning ring */}
                     <div className="absolute inset-0 border-4 border-cyan-500/20 rounded-full"></div>
                     <div className="absolute inset-0 border-4 border-transparent border-t-cyan-400 border-r-pink-400 rounded-full animate-spin"></div>
                     
                     {/* Inner pulsing circle */}
-                    <div className="absolute inset-4 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-full animate-pulse"></div>
+                    <div className="absolute inset-3 sm:inset-4 bg-gradient-to-r from-cyan-500 to-pink-500 rounded-full animate-pulse"></div>
                     
                     {/* Center icon */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-2xl sm:text-3xl">📈</span>
+                      <span className="text-xl sm:text-2xl md:text-3xl">📈</span>
                     </div>
                   </div>
                 </div>
                 
                 {/* Loading Steps */}
-                <div className="space-y-3 sm:space-y-4 text-left max-w-md mx-auto">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="space-y-2.5 sm:space-y-3 text-left max-w-md mx-auto">
+                  <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base">Setting up your Alpaca account...</p>
+                    <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">Setting up your Alpaca account...</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-cyan-500/50 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                  <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-cyan-500/50 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-pulse"></div>
                     </div>
-                    <p className="text-gray-400 text-sm sm:text-base">Activating your account...</p>
+                    <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed">Activating your account...</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                  <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-700 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-500"></div>
                     </div>
-                    <p className="text-gray-500 text-sm sm:text-base">Transferring ${gift.amount.toFixed(2)} to your account...</p>
+                    <p className="text-gray-500 text-xs sm:text-sm md:text-base leading-relaxed">Transferring ${gift.amount.toFixed(2)} to your account...</p>
                   </div>
                   
-                  <div className="flex items-center space-x-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-700 flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                  <div className="flex items-start sm:items-center space-x-2.5 sm:space-x-3">
+                    <div className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-700 flex items-center justify-center mt-0.5 sm:mt-0">
+                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gray-500"></div>
                     </div>
-                    <p className="text-gray-500 text-sm sm:text-base">Purchasing {gift.stockSymbol} stock...</p>
+                    <p className="text-gray-500 text-xs sm:text-sm md:text-base leading-relaxed">Purchasing {gift.stockSymbol} stock...</p>
                   </div>
                 </div>
               </div>
               
-              <p className="text-gray-400 text-xs sm:text-sm">
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                 This usually takes 10-20 seconds. Please don't close this page!
               </p>
             </div>
@@ -306,10 +306,10 @@ export default function ClaimPage() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
-          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Account Information</h2>
+        <form onSubmit={handleSubmit} className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 md:mb-6">Account Information</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 First Name *
@@ -319,7 +319,7 @@ export default function ClaimPage() {
                 required
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
 
@@ -332,7 +332,7 @@ export default function ClaimPage() {
                 required
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
           </div>
@@ -346,7 +346,7 @@ export default function ClaimPage() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               placeholder="your@email.com"
             />
             <p className="text-xs text-gray-500 mt-1">
@@ -363,7 +363,7 @@ export default function ClaimPage() {
               required
               value={formData.dateOfBirth}
               onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
 
@@ -376,7 +376,7 @@ export default function ClaimPage() {
               required
               value={formData.taxId}
               onChange={(e) => setFormData({ ...formData, taxId: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               placeholder="For Sandbox testing only"
             />
             <p className="text-xs text-gray-500 mt-1">
@@ -393,11 +393,11 @@ export default function ClaimPage() {
               required
               value={formData.streetAddress}
               onChange={(e) => setFormData({ ...formData, streetAddress: e.target.value })}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
                 City *
@@ -407,7 +407,7 @@ export default function ClaimPage() {
                 required
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
 
@@ -420,7 +420,7 @@ export default function ClaimPage() {
                 required
                 value={formData.state}
                 onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
 
@@ -433,15 +433,15 @@ export default function ClaimPage() {
                 required
                 value={formData.zipCode}
                 onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
           </div>
 
           {/* Password section - only show for new users */}
-          <div className="border-t border-gray-700 pt-6 mt-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Account Setup</h3>
-            <p className="text-sm text-gray-400 mb-4">
+          <div className="border-t border-gray-700 pt-4 sm:pt-5 md:pt-6 mt-4 sm:mt-5 md:mt-6">
+            <h3 className="text-base sm:text-lg font-semibold text-white mb-3 sm:mb-4">Account Setup</h3>
+            <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 leading-relaxed">
               {formData.email ? (
                 <>If you already have an account with {formData.email}, you can skip the password fields below. Otherwise, set up a password to access your portfolio later.</>
               ) : (
@@ -459,7 +459,7 @@ export default function ClaimPage() {
                   minLength={6}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   placeholder="At least 6 characters (optional for existing users)"
                 />
               </div>
@@ -472,7 +472,7 @@ export default function ClaimPage() {
                   type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   placeholder="Re-enter your password"
                 />
               </div>
@@ -482,7 +482,7 @@ export default function ClaimPage() {
           <button
             type="submit"
             disabled={isClaiming}
-            className="w-full py-4 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-pink-600 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
           >
             {isClaiming ? 'Processing...' : 'Claim Gift'}
           </button>

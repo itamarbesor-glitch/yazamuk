@@ -248,31 +248,31 @@ export default function PortfolioPage() {
 
         {/* Welcome Message */}
         {showWelcome && (
-          <div className="mb-6 sm:mb-8 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl p-4 sm:p-6">
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div className="text-2xl sm:text-4xl flex-shrink-0">🎉</div>
+          <div className="mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl p-3 sm:p-4 md:p-6">
+            <div className="flex items-start gap-2.5 sm:gap-3 md:gap-4">
+              <div className="text-xl sm:text-2xl md:text-4xl flex-shrink-0">🎉</div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-lg sm:text-xl font-bold text-cyan-400 mb-2">Welcome to Your Portfolio!</h2>
-                <p className="text-gray-300 mb-3">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-cyan-400 mb-1.5 sm:mb-2">Welcome to Your Portfolio!</h2>
+                <p className="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">
                   Your gift has been received and your account has been set up! Here's what's happening:
                 </p>
-                <ul className="list-disc list-inside text-gray-400 space-y-1 mb-4">
+                <ul className="list-disc list-inside text-gray-400 space-y-1 mb-3 sm:mb-4 text-xs sm:text-sm">
                   <li><span className="text-yellow-400">Pending Orders</span> - Your buy order is being processed by the market</li>
                   <li><span className="text-green-400">Filled Orders</span> - Orders that have been completed</li>
                   <li><span className="text-cyan-400">Positions</span> - Once your order fills, your stock will appear here</li>
                 </ul>
-                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-3 mt-4">
-                  <p className="text-sm text-cyan-300">
+                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-2 sm:p-3 mt-3 sm:mt-4">
+                  <p className="text-xs sm:text-sm text-cyan-300 leading-relaxed">
                     <strong>💡 Remember:</strong> You can always log in again using your email and password to access your portfolio anytime!
                   </p>
                 </div>
-                <p className="text-sm text-gray-500 mt-3">
+                <p className="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3 leading-relaxed">
                   This page will automatically update as your orders are processed. Market orders typically fill within seconds!
                 </p>
               </div>
               <button
                 onClick={() => setShowWelcome(false)}
-                className="text-gray-500 hover:text-gray-300 transition-colors flex-shrink-0 text-xl sm:text-2xl"
+                className="text-gray-500 hover:text-gray-300 transition-colors flex-shrink-0 text-lg sm:text-xl md:text-2xl mt-0.5"
                 aria-label="Close"
               >
                 ✕
