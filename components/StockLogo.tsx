@@ -25,7 +25,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
     NVDA: {
       src: '/images/logos/nvidia.png',
       alt: 'NVIDIA Logo',
-      scale: 1.5, // Make NVIDIA logo larger
+      scale: 2, // Make NVIDIA logo larger
     },
   }
 
@@ -52,10 +52,21 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         alt={logo.alt}
         width={imgWidth}
         height={imgHeight}
-        className="object-contain w-full h-full"
+        className="object-contain"
         style={{
-          transform: scale !== 1 ? `scale(${scale})` : undefined,
-          filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
+          width: scale !== 1 ? `${100 * scale}%` : '100%',
+          height: scale !== 1 ? `${100 * scale}%` : '100%',
+          filter: symbol === 'AAPL' 
+            ? 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)'
+            : 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
+          imageRendering: 'auto',
+          display: 'block',
+        }}
+        onError={(e) => {
+          console.error('Failed to load logo:', logo.src, e)
+        }}
+        onLoad={(e) => {
+          console.log('Logo loaded successfully:', logo.src)
         }}
       />
     </div>
