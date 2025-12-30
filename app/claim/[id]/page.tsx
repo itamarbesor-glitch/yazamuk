@@ -171,27 +171,25 @@ export default function ClaimPage() {
 
         <div className="relative max-w-2xl w-full">
           <div className="glass rounded-xl overflow-hidden shadow-2xl">
-            {/* Stock Image - Full Width Hero */}
+            {/* Stock Image - Clean at Top */}
             {stockImage && (
-              <div className="relative w-full h-56 sm:h-64 md:h-80 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
+              <div className="w-full h-48 sm:h-56 md:h-64 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
                 <img 
                   src={stockImage} 
                   alt={gift.stockSymbol}
                   className="w-full h-full object-contain"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 via-slate-950/95 to-slate-950/80 pt-20 sm:pt-24 md:pt-28 pb-3 sm:pb-4 md:pb-6 px-3 sm:px-4 md:px-6">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-mint-400 mb-1 sm:mb-2">
-                    Congratulations! 🎉
-                  </h2>
-                  <p className="text-sm sm:text-base md:text-lg font-semibold text-white leading-tight">
-                    We're creating your account and buying your {gift.stockSymbol} stock!
-                  </p>
-                </div>
               </div>
             )}
             
             {/* Loading Content */}
             <div className="p-4 sm:p-6 md:p-8 text-center">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-mint-400 mb-2 sm:mb-3">
+                Congratulations! 🎉
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg font-semibold text-white mb-4 sm:mb-6 leading-relaxed">
+                We're creating your account and buying your {gift.stockSymbol} stock!
+              </p>
               <div className="mb-4 sm:mb-6">
                 {/* Animated Loader */}
                 <div className="flex justify-center mb-4 sm:mb-6">
