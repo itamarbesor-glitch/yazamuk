@@ -26,7 +26,7 @@ export default function ClaimPage() {
     lastName: 'Doe',
     email: '',
     dateOfBirth: '1990-01-01',
-    taxId: '123456789',
+    taxId: '987654321',
     streetAddress: '123 Main Street',
     city: 'New York',
     state: 'NY',
