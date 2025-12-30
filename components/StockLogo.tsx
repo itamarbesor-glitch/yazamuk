@@ -12,11 +12,11 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
 
   const sizeClass = sizes[size]
 
-  // Company logos in SVG format - all in consistent mint color
-  // Accurate representations of actual company logos
+  // Company logos in SVG format - all in consistent mint color (mint-400)
+  // Simplified but recognizable versions of actual company logos
   const logos: { [key: string]: JSX.Element } = {
     TSLA: (
-      // Tesla T logo - stylized T shape
+      // Tesla T logo - stylized T in shield shape
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
         <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l8 4v8.64l-8 4-8-4V8.18l8-4z"/>
         <path d="M12 6L6 9v6l6 3 6-3V9l-6-3zm0 2.18l4 2v3.64l-4 2-4-2v-3.64l4-2z"/>
@@ -29,7 +29,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       </svg>
     ),
     NVDA: (
-      // NVIDIA eye logo - geometric eye shape
+      // NVIDIA eye logo - stylized geometric eye
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
         <circle cx="12" cy="12" r="1.5"/>
