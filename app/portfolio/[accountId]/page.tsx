@@ -216,11 +216,17 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 sm:py-12 md:py-16 px-4">
+      {/* Background decoration */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-6xl mx-auto">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
               Your Portfolio
             </h1>
             <p className="text-sm sm:text-base text-gray-400">Track your stocks and their current value</p>
@@ -228,7 +234,7 @@ export default function PortfolioPage() {
           {user && (
             <div className="text-left sm:text-right w-full sm:w-auto">
               <div className="text-xs sm:text-sm text-gray-400">Logged in as</div>
-              <div className="text-cyan-400 font-semibold text-sm sm:text-base break-all">{user.email}</div>
+              <div className="text-mint-400 font-semibold text-sm sm:text-base break-all">{user.email}</div>
               <button
                 onClick={async () => {
                   try {
@@ -248,11 +254,11 @@ export default function PortfolioPage() {
 
         {/* Welcome Message */}
         {showWelcome && (
-          <div className="mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-cyan-500/10 to-pink-500/10 border border-cyan-500/30 rounded-xl p-3 sm:p-4 md:p-6">
+          <div className="mb-4 sm:mb-6 md:mb-8 bg-gradient-to-r from-mint-500/10 to-purple-500/10 border border-mint-500/30 rounded-xl p-3 sm:p-4 md:p-6">
             <div className="flex items-start gap-2.5 sm:gap-3 md:gap-4">
               <div className="text-xl sm:text-2xl md:text-4xl flex-shrink-0">🎉</div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-base sm:text-lg md:text-xl font-bold text-cyan-400 mb-1.5 sm:mb-2">Welcome to Your Portfolio!</h2>
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-mint-400 mb-1.5 sm:mb-2">Welcome to Your Portfolio!</h2>
                 <p className="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">
                   Your gift has been received and your account has been set up! Here's what's happening:
                 </p>
@@ -261,8 +267,8 @@ export default function PortfolioPage() {
                   <li><span className="text-green-400">Filled Orders</span> - Orders that have been completed</li>
                   <li><span className="text-cyan-400">Positions</span> - Once your order fills, your stock will appear here</li>
                 </ul>
-                <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-2 sm:p-3 mt-3 sm:mt-4">
-                  <p className="text-xs sm:text-sm text-cyan-300 leading-relaxed">
+                <div className="bg-mint-500/10 border border-mint-500/30 rounded-lg p-2 sm:p-3 mt-3 sm:mt-4">
+                  <p className="text-xs sm:text-sm text-mint-300 leading-relaxed">
                     <strong>💡 Remember:</strong> You can always log in again using your email and password to access your portfolio anytime!
                   </p>
                 </div>
@@ -283,9 +289,9 @@ export default function PortfolioPage() {
 
         {/* Login Reminder (if not showing welcome) */}
         {!showWelcome && user && (
-          <div className="mb-6 sm:mb-8 bg-gray-800/50 border border-gray-700 rounded-xl p-3 sm:p-4">
+          <div className="mb-6 sm:mb-8 glass rounded-xl p-3 sm:p-4">
             <p className="text-xs sm:text-sm text-gray-400">
-              <span className="text-cyan-400">💡 Tip:</span> You can log in anytime using your email (<span className="break-all">{user.email}</span>) and password to access your portfolio.
+              <span className="text-mint-400">💡 Tip:</span> You can log in anytime using your email (<span className="break-all">{user.email}</span>) and password to access your portfolio.
             </p>
           </div>
         )}
@@ -294,7 +300,7 @@ export default function PortfolioPage() {
         {openOrders.length > 0 && (
           <div className="mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">Active Orders</h2>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+            <div className="glass rounded-xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto -mx-4 sm:mx-0">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-gray-700">
@@ -350,13 +356,13 @@ export default function PortfolioPage() {
         {/* Account Summary */}
         {accountInfo && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6">
+            <div className="glass rounded-xl p-4 sm:p-6 shadow-xl">
               <div className="text-xs sm:text-sm text-gray-400 mb-1">Cash</div>
-              <div className="text-xl sm:text-2xl font-bold text-cyan-400 break-words">
+              <div className="text-xl sm:text-2xl font-bold text-mint-400 break-words">
                 {formatCurrency(accountInfo.cash)}
               </div>
             </div>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6">
+            <div className="glass rounded-xl p-4 sm:p-6 shadow-xl">
               <div className="text-xs sm:text-sm text-gray-400 mb-1">Total Portfolio Value</div>
               <div className="text-xl sm:text-2xl font-bold text-green-400 break-words">
                 {formatCurrency(totalPortfolioValue + parseFloat(accountInfo.cash || '0'))}
@@ -445,7 +451,7 @@ export default function PortfolioPage() {
         {recentFilledOrders.length > 0 && (
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white">Recent Orders</h2>
-            <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+            <div className="glass rounded-xl overflow-hidden shadow-xl">
               <div className="overflow-x-auto -mx-4 sm:mx-0">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-gray-700">
