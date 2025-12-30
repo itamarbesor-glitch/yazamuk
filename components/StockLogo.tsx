@@ -24,8 +24,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   }
 
   // Tesla and NVIDIA use image files with mint color filter
-  // Crop to show only the symbol, not the text
-  const logos: { [key: string]: { src: string; alt: string; scale?: number; cropTop?: boolean; cropRight?: boolean } } = {
+  const logos: { [key: string]: { src: string; alt: string; scale?: number; cropTop?: boolean } } = {
     TSLA: {
       src: '/images/logos/tesla.png',
       alt: 'Tesla Logo',
@@ -35,8 +34,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       src: '/images/logos/nvidia.png',
       alt: 'NVIDIA Logo',
       scale: 3, // Make NVIDIA logo much larger
-      cropTop: true, // Crop to show only the eye symbol, not the NVIDIA text
-      cropRight: true, // Also crop from right to remove "VIDIA" text
+      // No cropping - show full logo
     },
   }
 
@@ -69,15 +67,9 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
           height: scale !== 1 ? `${100 * scale}%` : '100%',
           maxWidth: 'none',
           maxHeight: 'none',
-          objectPosition: logo.cropTop ? 'top left' : 'center',
-          // Crop more aggressively for NVIDIA to remove "VIDIA" text
-          // For Tesla: crop bottom 40% (show top 60%)
-          // For NVIDIA: crop bottom 40% and right 50% (show top-left 60% x 50%)
-          clipPath: logo.cropTop && logo.cropRight 
-            ? 'inset(0 50% 40% 0)' // NVIDIA: show top-left portion (symbol only)
-            : logo.cropTop 
-            ? 'inset(0 0 40% 0)' // Tesla: show top portion
-            : 'none',
+          objectPosition: logo.cropTop ? 'top center' : 'center', // Center Tesla horizontally
+          // Crop Tesla to show only top 60% (symbol part, hide text below)
+          clipPath: logo.cropTop ? 'inset(0 0 40% 0)' : 'none',
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
