@@ -45,16 +45,18 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         overflow: 'hidden',
       }}
     >
-      <img
-        src={logo.src}
-        alt={logo.alt}
-        className="w-full h-full object-contain"
+      <div
+        className="w-full h-full"
         style={{
-          objectPosition: 'center',
-          // Remove white background and apply mint color
-          filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
-          imageRendering: 'auto',
-          display: 'block',
+          maskImage: `url(${logo.src})`,
+          maskSize: 'contain',
+          maskRepeat: 'no-repeat',
+          maskPosition: 'center',
+          WebkitMaskImage: `url(${logo.src})`,
+          WebkitMaskSize: 'contain',
+          WebkitMaskRepeat: 'no-repeat',
+          WebkitMaskPosition: 'center',
+          backgroundColor: '#5eead4', // mint-400 color
         }}
       />
     </div>
