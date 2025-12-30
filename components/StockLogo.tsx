@@ -13,13 +13,16 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const sizeClass = sizes[size]
 
   // Company logos in SVG format - all in consistent mint color (mint-400)
-  // Simplified but recognizable versions of actual company logos
+  // Accurate representations of actual company logos
   const logos: { [key: string]: JSX.Element } = {
     TSLA: (
-      // Tesla T logo - stylized T in shield shape
+      // Tesla T logo - T with inverted triangle vertical bar and curved horizontal bar
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-        <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l8 4v8.64l-8 4-8-4V8.18l8-4z"/>
-        <path d="M12 6L6 9v6l6 3 6-3V9l-6-3zm0 2.18l4 2v3.64l-4 2-4-2v-3.64l4-2z"/>
+        {/* Horizontal bar - curved, extends left and right */}
+        <path d="M3 11.5c0-0.8 0.7-1.5 1.5-1.5h15c0.8 0 1.5 0.7 1.5 1.5s-0.7 1.5-1.5 1.5h-15c-0.8 0-1.5-0.7-1.5-1.5z"/>
+        {/* Vertical bar - inverted triangle pointing down */}
+        <path d="M11.5 3L12 4L12.5 3L12 20L11.5 3z" fill="currentColor"/>
+        <path d="M10.5 20L12 22L13.5 20L12 21L10.5 20z" fill="currentColor"/>
       </svg>
     ),
     AAPL: (
@@ -29,10 +32,18 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       </svg>
     ),
     NVDA: (
-      // NVIDIA eye logo - stylized geometric eye
+      // NVIDIA eye logo - angular geometric eye with distinctive swirl
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
-        <circle cx="12" cy="12" r="1.5"/>
+        {/* Main angular eye shape - diamond/rotated square */}
+        <path d="M12 2L2 12L12 22L22 12L12 2z" fill="currentColor"/>
+        {/* Left half - solid fill */}
+        <path d="M12 2L2 12L12 12L12 2z" fill="currentColor" opacity="1"/>
+        {/* Right half - with swirl pattern */}
+        <path d="M12 2L22 12L12 22L12 12L12 2z" fill="currentColor" opacity="0.6"/>
+        {/* Inner swirl layers */}
+        <path d="M12 6L6 12L12 18L18 12L12 6z" fill="currentColor" opacity="0.4"/>
+        <path d="M12 8L8 12L12 16L16 12L12 8z" fill="currentColor" opacity="0.3"/>
+        <path d="M12 10L10 12L12 14L14 12L12 10z" fill="currentColor" opacity="0.2"/>
       </svg>
     ),
   }
