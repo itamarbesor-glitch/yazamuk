@@ -150,6 +150,15 @@ export default function ClaimPage() {
     )
   }
 
+  // Map stock symbols to image paths
+  const stockImageMap: Record<string, string> = {
+    'TSLA': '/images/tsla.png',
+    'AAPL': '/images/aapl.png',
+    'NVDA': '/images/nvda.png',
+  }
+  
+  const stockImage = stockImageMap[gift.stockSymbol] || null
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-2xl mx-auto">
@@ -158,6 +167,22 @@ export default function ClaimPage() {
             You received a gift! 🎁
           </h1>
           <div className="bg-gray-900 border border-gray-700 rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+            {/* Stock Image */}
+            {stockImage && (
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <img 
+                    src={stockImage} 
+                    alt={gift.stockSymbol}
+                    className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain rounded-lg shadow-lg"
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-cyan-500 to-pink-500 text-white font-bold text-lg sm:text-xl px-3 py-1 rounded-full shadow-lg">
+                    {gift.stockSymbol}
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
               You received a gift from <span className="text-cyan-400">{gift.senderName}</span>
             </p>
