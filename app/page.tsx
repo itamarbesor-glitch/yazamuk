@@ -14,42 +14,7 @@ const STOCKS = [
 
 const COUNTRY_CODES = [
   { code: '+1', country: 'US', flag: '🇺🇸' },
-  { code: '+44', country: 'UK', flag: '🇬🇧' },
-  { code: '+33', country: 'FR', flag: '🇫🇷' },
-  { code: '+49', country: 'DE', flag: '🇩🇪' },
-  { code: '+39', country: 'IT', flag: '🇮🇹' },
-  { code: '+34', country: 'ES', flag: '🇪🇸' },
-  { code: '+31', country: 'NL', flag: '🇳🇱' },
-  { code: '+41', country: 'CH', flag: '🇨🇭' },
-  { code: '+46', country: 'SE', flag: '🇸🇪' },
-  { code: '+47', country: 'NO', flag: '🇳🇴' },
-  { code: '+45', country: 'DK', flag: '🇩🇰' },
-  { code: '+358', country: 'FI', flag: '🇫🇮' },
-  { code: '+32', country: 'BE', flag: '🇧🇪' },
-  { code: '+43', country: 'AT', flag: '🇦🇹' },
-  { code: '+353', country: 'IE', flag: '🇮🇪' },
-  { code: '+351', country: 'PT', flag: '🇵🇹' },
-  { code: '+30', country: 'GR', flag: '🇬🇷' },
-  { code: '+48', country: 'PL', flag: '🇵🇱' },
-  { code: '+420', country: 'CZ', flag: '🇨🇿' },
-  { code: '+36', country: 'HU', flag: '🇭🇺' },
-  { code: '+7', country: 'RU', flag: '🇷🇺' },
-  { code: '+81', country: 'JP', flag: '🇯🇵' },
-  { code: '+86', country: 'CN', flag: '🇨🇳' },
-  { code: '+82', country: 'KR', flag: '🇰🇷' },
-  { code: '+91', country: 'IN', flag: '🇮🇳' },
-  { code: '+61', country: 'AU', flag: '🇦🇺' },
-  { code: '+64', country: 'NZ', flag: '🇳🇿' },
-  { code: '+27', country: 'ZA', flag: '🇿🇦' },
-  { code: '+55', country: 'BR', flag: '🇧🇷' },
-  { code: '+52', country: 'MX', flag: '🇲🇽' },
-  { code: '+54', country: 'AR', flag: '🇦🇷' },
-  { code: '+971', country: 'AE', flag: '🇦🇪' },
-  { code: '+966', country: 'SA', flag: '🇸🇦' },
   { code: '+972', country: 'IL', flag: '🇮🇱' },
-  { code: '+20', country: 'EG', flag: '🇪🇬' },
-  { code: '+234', country: 'NG', flag: '🇳🇬' },
-  { code: '+254', country: 'KE', flag: '🇰🇪' },
 ]
 
 export default function Home() {
@@ -79,6 +44,13 @@ export default function Home() {
       return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`
     }
     
+    // Israel format: XX-XXX-XXXX (9 digits after country code, but we show 10 digits including leading 0)
+    if (countryCode === '+972') {
+      if (digits.length <= 2) return digits
+      if (digits.length <= 5) return `${digits.slice(0, 2)}-${digits.slice(2)}`
+      return `${digits.slice(0, 2)}-${digits.slice(2, 5)}-${digits.slice(5, 9)}`
+    }
+    
     // For other countries, just limit to 15 digits (international standard)
     return digits.slice(0, 15)
   }
@@ -86,6 +58,7 @@ export default function Home() {
   // Get max length for phone input based on country
   const getMaxPhoneLength = (countryCode: string): number => {
     if (countryCode === '+1') return 14 // (XXX) XXX-XXXX format length
+    if (countryCode === '+972') return 12 // XX-XXX-XXXX format length
     return 15 // International standard
   }
 
@@ -255,7 +228,7 @@ export default function Home() {
                         }}
                         maxLength={getMaxPhoneLength(senderCountryCode)}
                         className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                        placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : '1234567890'}
+                        placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : senderCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-1.5">Country code selected automatically</p>
@@ -326,7 +299,7 @@ export default function Home() {
                         }}
                         maxLength={getMaxPhoneLength(receiverCountryCode)}
                         className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                        placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : '1234567890'}
+                        placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : receiverCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-1.5">They'll receive a WhatsApp message</p>
