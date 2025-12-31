@@ -5,9 +5,9 @@ interface StockLogoProps {
 
 export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
   const sizes = {
-    sm: 'w-8 h-8',
-    md: 'w-12 h-12',
-    lg: 'w-16 h-16',
+    sm: 'w-16 h-16',
+    md: 'w-20 h-20',
+    lg: 'w-24 h-24',
   }
 
   const sizeClass = sizes[size]
@@ -40,16 +40,22 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
 
   return (
     <div 
-      className={`${sizeClass} flex items-center justify-center relative`}
+      className="flex items-center justify-center relative"
       style={{ 
-        overflow: 'visible',
+        width: '100%',
+        height: '100%',
+        minHeight: size === 'sm' ? '64px' : size === 'md' ? '80px' : '96px',
       }}
     >
       <img
         src={`${logo.src}?v=final`}
         alt={logo.alt}
-        className="w-full h-full object-contain"
+        className="object-contain"
         style={{
+          width: '100%',
+          height: '100%',
+          maxWidth: '100%',
+          maxHeight: '100%',
           objectPosition: 'center',
           // Convert dark/black logo to mint color, transparent background stays transparent
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
