@@ -183,8 +183,7 @@ export default function ClaimPage() {
               </a>
             </div>
 
-            <div className="relative">
-          <div className="glass rounded-xl overflow-hidden shadow-2xl">
+            <div className="glass rounded-xl overflow-hidden shadow-2xl">
             {/* Stock Image - Clean at Top */}
             {stockImage && (
               <div className="w-full h-48 sm:h-56 md:h-64 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
@@ -261,7 +260,6 @@ export default function ClaimPage() {
               </p>
             </div>
           </div>
-            </div>
           </div>
         </div>
       </div>
@@ -520,7 +518,6 @@ export default function ClaimPage() {
             {isClaiming ? 'Processing...' : 'Claim Gift'}
           </button>
         </form>
-          </div>
         </div>
       </div>
     </div>
