@@ -67,6 +67,33 @@ export default function Home() {
   const [receiverCountryCode, setReceiverCountryCode] = useState('+1')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // Format phone number based on country code
+  const formatPhoneNumber = (value: string, countryCode: string): string => {
+    // Remove all non-digits
+    const digits = value.replace(/\D/g, '')
+    
+    // US/Canada format: (XXX) XXX-XXXX (10 digits)
+    if (countryCode === '+1') {
+      if (digits.length <= 3) return digits
+      if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`
+    }
+    
+    // For other countries, just limit to 15 digits (international standard)
+    return digits.slice(0, 15)
+  }
+
+  // Get max length for phone input based on country
+  const getMaxPhoneLength = (countryCode: string): number => {
+    if (countryCode === '+1') return 14 // (XXX) XXX-XXXX format length
+    return 15 // International standard
+  }
+
+  // Get unformatted phone number (digits only)
+  const getUnformattedPhone = (value: string): string => {
+    return value.replace(/\D/g, '')
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
@@ -88,10 +115,14 @@ export default function Home() {
 
     setIsSubmitting(true)
     try {
+      // Get unformatted phone numbers (digits only) before submitting
+      const senderPhoneDigits = getUnformattedPhone(formData.senderMobile)
+      const receiverPhoneDigits = getUnformattedPhone(formData.receiverMobile)
+      
       const response = await axios.post('/api/create-gift', {
         ...formData,
-        senderMobile: senderCountryCode + formData.senderMobile,
-        receiverMobile: receiverCountryCode + formData.receiverMobile,
+        senderMobile: senderCountryCode + senderPhoneDigits,
+        receiverMobile: receiverCountryCode + receiverPhoneDigits,
         amount: parseFloat(formData.amount),
       })
       
@@ -187,7 +218,13 @@ export default function Home() {
                       <div className="relative">
                         <select
                           value={senderCountryCode}
-                          onChange={(e) => setSenderCountryCode(e.target.value)}
+                          onChange={(e) => {
+                            setSenderCountryCode(e.target.value)
+                            // Reformat phone number when country code changes
+                            const digits = getUnformattedPhone(formData.senderMobile)
+                            const formatted = formatPhoneNumber(digits, e.target.value)
+                            setFormData({ ...formData, senderMobile: formatted })
+                          }}
                           className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
                         >
                           {COUNTRY_CODES.map((country) => (
@@ -207,12 +244,18 @@ export default function Home() {
                         required
                         value={formData.senderMobile}
                         onChange={(e) => {
+                          const inputValue = e.target.value
                           // Remove any existing country code if user types one
-                          const value = e.target.value.replace(/^\+\d+/, '')
-                          setFormData({ ...formData, senderMobile: value })
+                          const cleaned = inputValue.replace(/^\+\d+/, '')
+                          const formatted = formatPhoneNumber(cleaned, senderCountryCode)
+                          const maxLength = getMaxPhoneLength(senderCountryCode)
+                          if (formatted.length <= maxLength) {
+                            setFormData({ ...formData, senderMobile: formatted })
+                          }
                         }}
+                        maxLength={getMaxPhoneLength(senderCountryCode)}
                         className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                        placeholder="1234567890"
+                        placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : '1234567890'}
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-1.5">Country code selected automatically</p>
@@ -246,7 +289,13 @@ export default function Home() {
                       <div className="relative">
                         <select
                           value={receiverCountryCode}
-                          onChange={(e) => setReceiverCountryCode(e.target.value)}
+                          onChange={(e) => {
+                            setReceiverCountryCode(e.target.value)
+                            // Reformat phone number when country code changes
+                            const digits = getUnformattedPhone(formData.receiverMobile)
+                            const formatted = formatPhoneNumber(digits, e.target.value)
+                            setFormData({ ...formData, receiverMobile: formatted })
+                          }}
                           className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
                         >
                           {COUNTRY_CODES.map((country) => (
@@ -266,12 +315,18 @@ export default function Home() {
                         required
                         value={formData.receiverMobile}
                         onChange={(e) => {
+                          const inputValue = e.target.value
                           // Remove any existing country code if user types one
-                          const value = e.target.value.replace(/^\+\d+/, '')
-                          setFormData({ ...formData, receiverMobile: value })
+                          const cleaned = inputValue.replace(/^\+\d+/, '')
+                          const formatted = formatPhoneNumber(cleaned, receiverCountryCode)
+                          const maxLength = getMaxPhoneLength(receiverCountryCode)
+                          if (formatted.length <= maxLength) {
+                            setFormData({ ...formData, receiverMobile: formatted })
+                          }
                         }}
+                        maxLength={getMaxPhoneLength(receiverCountryCode)}
                         className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                        placeholder="1234567890"
+                        placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : '1234567890'}
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-1.5">They'll receive a WhatsApp message</p>
