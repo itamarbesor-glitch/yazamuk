@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import axios from 'axios'
+import Logo from '@/components/Logo'
 
 interface Position {
   symbol: string
@@ -216,14 +217,25 @@ export default function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 sm:py-12 md:py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
+            <Logo size="lg" />
+            <a
+              href="/login"
+              className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
+            >
+              Sign In
+            </a>
+          </div>
         {/* Beta Disclaimer */}
         <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
           <div className="flex items-start gap-2.5 sm:gap-3">
@@ -599,6 +611,7 @@ export default function PortfolioPage() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   )

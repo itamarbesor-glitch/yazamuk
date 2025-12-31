@@ -151,15 +151,6 @@ export default function ClaimPage() {
     )
   }
 
-  // Map stock symbols to image paths
-  const stockImageMap: Record<string, string> = {
-    'TSLA': '/images/tsla.png',
-    'AAPL': '/images/aapl.png',
-    'NVDA': '/images/nvda.png',
-  }
-  
-  const stockImage = stockImageMap[gift.stockSymbol] || null
-
   // Show amazing loading view when claiming
   if (isClaiming) {
     return (
@@ -184,17 +175,6 @@ export default function ClaimPage() {
             </div>
 
             <div className="glass rounded-xl overflow-hidden shadow-2xl">
-            {/* Stock Image - Clean at Top */}
-            {stockImage && (
-              <div className="w-full h-48 sm:h-56 md:h-64 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
-                <img 
-                  src={stockImage} 
-                  alt={gift.stockSymbol}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            )}
-            
             {/* Loading Content */}
             <div className="p-4 sm:p-6 md:p-8 text-center">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-mint-400 mb-2 sm:mb-3">
