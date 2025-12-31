@@ -46,7 +46,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       }}
     >
       <img
-        src={`${logo.src}?v=transparent`}
+        src={`${logo.src}?v=new`}
         alt={logo.alt}
         className="w-full h-full object-contain"
         style={{
