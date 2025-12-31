@@ -46,7 +46,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       }}
     >
       <img
-        src={`${logo.src}?v=5`}
+        src={logo.src}
         alt={logo.alt}
         className="w-full h-full object-contain"
         style={{
@@ -55,6 +55,12 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
+        }}
+        onError={(e) => {
+          console.error('Failed to load logo:', logo.src, e)
+        }}
+        onLoad={() => {
+          console.log('Logo loaded successfully:', logo.src)
         }}
       />
     </div>
