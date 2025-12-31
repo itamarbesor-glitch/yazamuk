@@ -40,11 +40,9 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
 
   return (
     <div 
-      className="flex items-center justify-center relative"
+      className="flex items-center justify-center relative w-full"
       style={{ 
-        width: '100%',
-        height: '100%',
-        minHeight: size === 'sm' ? '64px' : size === 'md' ? '80px' : '96px',
+        height: size === 'sm' ? '64px' : size === 'md' ? '80px' : '96px',
       }}
     >
       <img
@@ -52,7 +50,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         alt={logo.alt}
         className="object-contain"
         style={{
-          width: '100%',
+          width: 'auto',
           height: '100%',
           maxWidth: '100%',
           maxHeight: '100%',
