@@ -163,14 +163,27 @@ export default function ClaimPage() {
   // Show amazing loading view when claiming
   if (isClaiming) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
         {/* Background decoration */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
         </div>
 
-        <div className="relative max-w-2xl w-full">
+        <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
+          <div className="max-w-3xl mx-auto">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
+              <Logo size="lg" />
+              <a
+                href="/login"
+                className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
+              >
+                Sign In
+              </a>
+            </div>
+
+            <div className="relative">
           <div className="glass rounded-xl overflow-hidden shadow-2xl">
             {/* Stock Image - Clean at Top */}
             {stockImage && (
@@ -248,36 +261,47 @@ export default function ClaimPage() {
               </p>
             </div>
           </div>
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-8 sm:py-12 md:py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-2xl mx-auto">
-        {/* Beta Disclaimer */}
-        <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
-          <div className="flex items-start gap-2.5 sm:gap-3">
-            <div className="text-base sm:text-lg flex-shrink-0">⚠️</div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs sm:text-sm text-amber-300 leading-relaxed">
-                <strong className="font-semibold">Beta Version:</strong> This is a beta testing environment. All transactions use play money (Alpaca Sandbox) and are not real.
-              </p>
+      <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
+            <Logo size="lg" />
+            <a
+              href="/login"
+              className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
+            >
+              Sign In
+            </a>
+          </div>
+
+          {/* Beta Disclaimer */}
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+            <div className="flex items-start gap-2.5 sm:gap-3">
+              <div className="text-base sm:text-lg flex-shrink-0">⚠️</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm text-amber-300 leading-relaxed">
+                  <strong className="font-semibold">Beta Version:</strong> This is a beta testing environment. All transactions use play money (Alpaca Sandbox) and are not real.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="mb-6 sm:mb-8 text-center">
-          <div className="flex items-center justify-center gap-3 mb-4 sm:mb-6">
-            <Logo size="lg" />
-          </div>
+          <div className="mb-6 sm:mb-8 text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
             You received a gift!
           </h1>
@@ -496,6 +520,8 @@ export default function ClaimPage() {
             {isClaiming ? 'Processing...' : 'Claim Gift'}
           </button>
         </form>
+          </div>
+        </div>
       </div>
     </div>
   )
