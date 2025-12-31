@@ -229,12 +229,14 @@ export default function PortfolioPage() {
           {/* Header */}
           <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
             <Logo size="lg" />
-            <a
-              href="/login"
-              className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
-            >
-              Sign In
-            </a>
+            {!user && (
+              <a
+                href="/login"
+                className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
+              >
+                Sign In
+              </a>
+            )}
           </div>
         {/* Beta Disclaimer */}
         <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl">
