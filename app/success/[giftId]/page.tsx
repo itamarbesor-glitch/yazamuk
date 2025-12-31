@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
 import Logo from '@/components/Logo'
+import FlyingLogos from '@/components/FlyingLogos'
 
 interface Gift {
   senderName: string
@@ -46,6 +47,9 @@ export default function SuccessPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Flying Logos Animation */}
+      {gift && <FlyingLogos symbol={gift.stockSymbol} duration={3000} />}
+      
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
@@ -114,6 +118,24 @@ export default function SuccessPage() {
             💡 Your friend will receive the WhatsApp message shortly. They can click the link in the message to claim their gift and set up their account.
           </p>
         </div>
+
+        {/* Local Development Link */}
+        {typeof window !== 'undefined' && window.location.hostname === 'localhost' && (
+          <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl">
+            <p className="text-xs sm:text-sm text-blue-300 mb-2 font-semibold">
+              🧪 Local Development
+            </p>
+            <p className="text-xs sm:text-sm text-gray-400 mb-2">
+              To test locally, use this link:
+            </p>
+            <a
+              href={`/claim/${giftId}`}
+              className="text-xs sm:text-sm text-blue-400 hover:text-blue-300 underline break-all font-mono"
+            >
+              {window.location.origin}/claim/{giftId}
+            </a>
+          </div>
+        )}
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3">

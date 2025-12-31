@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import axios from 'axios'
 import Logo from '@/components/Logo'
 import StockLogo from '@/components/StockLogo'
+import FlyingLogos from '@/components/FlyingLogos'
 
 interface Gift {
   id: string
@@ -249,6 +250,9 @@ export default function ClaimPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Flying Logos Animation */}
+      {gift && <FlyingLogos symbol={gift.stockSymbol} duration={3000} />}
+      
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
@@ -281,18 +285,19 @@ export default function ClaimPage() {
           </div>
 
           <div className="mb-6 sm:mb-8 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-            Congratulations! 🎁🎉
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
+            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">Congratulations!</span>
+            <span className="inline-block ml-2">🎉</span>
           </h1>
           <div className="glass rounded-xl p-4 sm:p-6 md:p-8 mb-4 sm:mb-6 shadow-xl">
             <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-3 sm:mb-4">
-              You received a gift from <span className="text-mint-400">{gift.senderName}</span>
+              🎁 You received a gift from <span className="text-mint-400">{gift.senderName}</span>
             </p>
-            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 flex-wrap">
+            <div className="flex items-center justify-center mb-4 sm:mb-6 flex-wrap">
               <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-mint-400">
                 ${gift.amount.toFixed(2)} worth of {gift.stockSymbol}
               </p>
-              <div className="flex-shrink-0 flex items-center justify-center">
+              <div className="flex-shrink-0 flex items-center justify-center -ml-2">
                 <StockLogo symbol={gift.stockSymbol} size="md" />
               </div>
             </div>
