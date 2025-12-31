@@ -88,7 +88,8 @@ export default function SuccessPage() {
           <p className="text-gray-200 text-base sm:text-lg mb-2 font-medium">
             {gift ? (
               <>
-                <span className="text-mint-400 font-semibold">{gift.receiverName}</span> will receive a WhatsApp message
+                <span className="text-mint-400 font-semibold">{gift.receiverName}</span> will receive a WhatsApp message to{' '}
+                <span className="text-mint-400 font-semibold">{gift.receiverMobile || 'their phone number'}</span>
               </>
             ) : (
               'Your friend will receive a WhatsApp message'
