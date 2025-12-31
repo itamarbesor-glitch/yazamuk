@@ -50,11 +50,13 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
         alt={logo.alt}
         className="object-contain"
         style={{
-          width: 'auto',
-          height: '400%', // Make logo 4x bigger inside the container
+          width: '100%',
+          height: '100%',
           maxWidth: '100%',
-          maxHeight: 'none',
+          maxHeight: '100%',
           objectPosition: 'center',
+          transform: 'scale(4)', // Scale logo 4x bigger
+          transformOrigin: 'center',
           // Convert dark/black logo to mint color, transparent background stays transparent
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
