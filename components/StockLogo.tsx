@@ -46,13 +46,13 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
       }}
     >
       <img
-        src={`${logo.src}?v=${Date.now()}`}
+        src={`${logo.src}?v=3`}
         alt={logo.alt}
         className="w-full h-full object-contain"
         style={{
           objectPosition: 'center',
           // Convert dark/black logo to mint color
-          // Note: Apple and Tesla are JPEG (no transparency), NVIDIA is PNG (has transparency)
+          // Note: Apple and Tesla files are JPEG (no transparency), NVIDIA is PNG (has transparency)
           filter: 'brightness(0) saturate(100%) invert(77%) sepia(67%) saturate(1234%) hue-rotate(135deg) brightness(101%) contrast(101%)',
           imageRendering: 'auto',
           display: 'block',
