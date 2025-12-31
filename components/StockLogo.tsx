@@ -42,7 +42,7 @@ export default function StockLogo({ symbol, size = 'md' }: StockLogoProps) {
     <div 
       className="flex items-center justify-center relative w-full"
       style={{ 
-        height: size === 'sm' ? '96px' : size === 'md' ? '120px' : '144px',
+        height: size === 'sm' ? '384px' : size === 'md' ? '480px' : '576px',
       }}
     >
       <img
