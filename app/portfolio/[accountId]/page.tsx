@@ -286,12 +286,12 @@ export default function PortfolioPage() {
               <div className="flex-1 min-w-0">
                 <h2 className="text-base sm:text-lg md:text-xl font-bold text-mint-400 mb-1.5 sm:mb-2">Welcome to Your Portfolio!</h2>
                 <p className="text-gray-300 mb-2 sm:mb-3 text-sm sm:text-base leading-relaxed">
-                  Your gift has been received and your account has been set up! Here's what's happening:
+                  Your gift has been received and your account has been set up! Here's what you'll see:
                 </p>
                 <ul className="list-disc list-inside text-gray-400 space-y-1 mb-3 sm:mb-4 text-xs sm:text-sm">
-                  <li><span className="text-yellow-400">Pending Orders</span> - Your buy order is being processed by the market</li>
-                  <li><span className="text-green-400">Filled Orders</span> - Orders that have been completed</li>
-                  <li><span className="text-cyan-400">Positions</span> - Once your order fills, your stock will appear here</li>
+                  <li><span className="text-yellow-400">Active Orders Details</span> - Your buy order is being processed by the market. You can see the status, amount, and progress here.</li>
+                  <li><span className="text-cyan-400">Your Holdings</span> - Once your order fills, your stock will appear here with current value and performance</li>
+                  <li><span className="text-green-400">Recent Orders</span> - Completed orders are shown here for your reference</li>
                 </ul>
                 <div className="bg-mint-500/10 border border-mint-500/30 rounded-lg p-2 sm:p-3 mt-3 sm:mt-4">
                   <p className="text-xs sm:text-sm text-mint-300 leading-relaxed">
