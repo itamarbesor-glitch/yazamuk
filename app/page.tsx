@@ -12,6 +12,46 @@ const STOCKS = [
   { symbol: 'NVDA', name: 'NVIDIA', color: 'from-gray-400 to-gray-600' },
 ]
 
+const COUNTRY_CODES = [
+  { code: '+1', country: 'US', flag: '🇺🇸' },
+  { code: '+44', country: 'UK', flag: '🇬🇧' },
+  { code: '+33', country: 'FR', flag: '🇫🇷' },
+  { code: '+49', country: 'DE', flag: '🇩🇪' },
+  { code: '+39', country: 'IT', flag: '🇮🇹' },
+  { code: '+34', country: 'ES', flag: '🇪🇸' },
+  { code: '+31', country: 'NL', flag: '🇳🇱' },
+  { code: '+41', country: 'CH', flag: '🇨🇭' },
+  { code: '+46', country: 'SE', flag: '🇸🇪' },
+  { code: '+47', country: 'NO', flag: '🇳🇴' },
+  { code: '+45', country: 'DK', flag: '🇩🇰' },
+  { code: '+358', country: 'FI', flag: '🇫🇮' },
+  { code: '+32', country: 'BE', flag: '🇧🇪' },
+  { code: '+43', country: 'AT', flag: '🇦🇹' },
+  { code: '+353', country: 'IE', flag: '🇮🇪' },
+  { code: '+351', country: 'PT', flag: '🇵🇹' },
+  { code: '+30', country: 'GR', flag: '🇬🇷' },
+  { code: '+48', country: 'PL', flag: '🇵🇱' },
+  { code: '+420', country: 'CZ', flag: '🇨🇿' },
+  { code: '+36', country: 'HU', flag: '🇭🇺' },
+  { code: '+7', country: 'RU', flag: '🇷🇺' },
+  { code: '+81', country: 'JP', flag: '🇯🇵' },
+  { code: '+86', country: 'CN', flag: '🇨🇳' },
+  { code: '+82', country: 'KR', flag: '🇰🇷' },
+  { code: '+91', country: 'IN', flag: '🇮🇳' },
+  { code: '+61', country: 'AU', flag: '🇦🇺' },
+  { code: '+64', country: 'NZ', flag: '🇳🇿' },
+  { code: '+27', country: 'ZA', flag: '🇿🇦' },
+  { code: '+55', country: 'BR', flag: '🇧🇷' },
+  { code: '+52', country: 'MX', flag: '🇲🇽' },
+  { code: '+54', country: 'AR', flag: '🇦🇷' },
+  { code: '+971', country: 'AE', flag: '🇦🇪' },
+  { code: '+966', country: 'SA', flag: '🇸🇦' },
+  { code: '+972', country: 'IL', flag: '🇮🇱' },
+  { code: '+20', country: 'EG', flag: '🇪🇬' },
+  { code: '+234', country: 'NG', flag: '🇳🇬' },
+  { code: '+254', country: 'KE', flag: '🇰🇪' },
+]
+
 export default function Home() {
   const router = useRouter()
   const [formData, setFormData] = useState({
@@ -23,6 +63,8 @@ export default function Home() {
     amount: '',
     stockSymbol: '',
   })
+  const [senderCountryCode, setSenderCountryCode] = useState('+1')
+  const [receiverCountryCode, setReceiverCountryCode] = useState('+1')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,6 +90,8 @@ export default function Home() {
     try {
       const response = await axios.post('/api/create-gift', {
         ...formData,
+        senderMobile: senderCountryCode + formData.senderMobile,
+        receiverMobile: receiverCountryCode + formData.receiverMobile,
         amount: parseFloat(formData.amount),
       })
       
@@ -139,15 +183,39 @@ export default function Home() {
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       Your Mobile Number
                     </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.senderMobile}
-                      onChange={(e) => setFormData({ ...formData, senderMobile: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                      placeholder="+1234567890"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">Include country code (e.g., +1 for US)</p>
+                    <div className="flex gap-2">
+                      <div className="relative">
+                        <select
+                          value={senderCountryCode}
+                          onChange={(e) => setSenderCountryCode(e.target.value)}
+                          className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
+                        >
+                          {COUNTRY_CODES.map((country) => (
+                            <option key={country.code} value={country.code} className="bg-slate-800">
+                              {country.flag} {country.code}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.senderMobile}
+                        onChange={(e) => {
+                          // Remove any existing country code if user types one
+                          const value = e.target.value.replace(/^\+\d+/, '')
+                          setFormData({ ...formData, senderMobile: value })
+                        }}
+                        className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                        placeholder="1234567890"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1.5">Country code selected automatically</p>
                   </div>
                 </div>
               </div>
@@ -174,14 +242,38 @@ export default function Home() {
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       Recipient Mobile Number
                     </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.receiverMobile}
-                      onChange={(e) => setFormData({ ...formData, receiverMobile: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                      placeholder="+1234567890"
-                    />
+                    <div className="flex gap-2">
+                      <div className="relative">
+                        <select
+                          value={receiverCountryCode}
+                          onChange={(e) => setReceiverCountryCode(e.target.value)}
+                          className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
+                        >
+                          {COUNTRY_CODES.map((country) => (
+                            <option key={country.code} value={country.code} className="bg-slate-800">
+                              {country.flag} {country.code}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.receiverMobile}
+                        onChange={(e) => {
+                          // Remove any existing country code if user types one
+                          const value = e.target.value.replace(/^\+\d+/, '')
+                          setFormData({ ...formData, receiverMobile: value })
+                        }}
+                        className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                        placeholder="1234567890"
+                      />
+                    </div>
                     <p className="text-xs text-gray-500 mt-1.5">They'll receive a WhatsApp message</p>
                   </div>
                 </div>
