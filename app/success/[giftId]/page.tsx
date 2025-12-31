@@ -45,18 +45,27 @@ export default function SuccessPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-mint-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-mint-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-md w-full glass rounded-2xl p-8 sm:p-10 text-center shadow-2xl animate-fade-in">
-        {/* Logo */}
-        <div className="mb-6 flex justify-center">
-          <Logo size="md" />
-        </div>
+      <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
+        <div className="max-w-3xl mx-auto">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
+            <Logo size="lg" />
+            <a
+              href="/login"
+              className="text-sm sm:text-base text-gray-400 hover:text-mint-400 transition-colors font-medium"
+            >
+              Sign In
+            </a>
+          </div>
+
+          <div className="glass rounded-2xl p-8 sm:p-10 text-center shadow-2xl animate-fade-in">
 
         {/* Success Icon */}
         <div className="mb-6">
@@ -105,14 +114,16 @@ export default function SuccessPage() {
           </p>
         </div>
 
-        {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href="/"
-            className="flex-1 px-6 py-3 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-lg shadow-mint-500/30"
-          >
-            Create Another Gift
-          </a>
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="/"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-lg shadow-mint-500/30"
+              >
+                Create Another Gift
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
