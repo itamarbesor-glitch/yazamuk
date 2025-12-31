@@ -7,9 +7,9 @@ import Logo from '@/components/Logo'
 import StockLogo from '@/components/StockLogo'
 
 const STOCKS = [
-  { symbol: 'TSLA', name: 'Tesla', color: 'from-red-500 to-orange-500' },
+  { symbol: 'TSLA', name: 'Tesla', color: 'from-gray-400 to-gray-600' },
   { symbol: 'AAPL', name: 'Apple', color: 'from-gray-400 to-gray-600' },
-  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-green-400 to-emerald-600' },
+  { symbol: 'NVDA', name: 'NVIDIA', color: 'from-gray-400 to-gray-600' },
 ]
 
 export default function Home() {
