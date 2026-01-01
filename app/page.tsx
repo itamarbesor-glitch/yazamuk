@@ -165,7 +165,7 @@ export default function Home() {
 
               {/* Right Side - Image */}
               <div className="flex justify-center md:justify-start relative items-start md:ml-24">
-                <div className="relative w-full max-w-[33.6rem]">
+                <div className="relative w-full max-w-[90vw] sm:max-w-[28rem] md:max-w-[33.6rem]">
                   {/* Glow blob behind image */}
                   <div className="absolute inset-0 bg-mint-500/20 rounded-3xl blur-3xl transform scale-110 pointer-events-none" style={{ zIndex: 0 }}></div>
                   
@@ -176,12 +176,13 @@ export default function Home() {
                       alt="Mintbox Hero Mockup"
                       width={800}
                       height={600}
-                      className="object-contain w-full h-full"
+                      className="object-contain w-full h-auto"
                       style={{ 
                         border: 'none',
                         outline: 'none',
                         display: 'block'
                       }}
+                      sizes="(max-width: 640px) 90vw, (max-width: 768px) 28rem, 33.6rem"
                       priority
                     />
                   </div>
@@ -216,7 +217,7 @@ export default function Home() {
                       required
                       value={formData.senderName}
                       onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      className="w-full px-4 py-3 text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
                       placeholder="John Doe"
                     />
                   </div>
@@ -225,8 +226,8 @@ export default function Home() {
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       Your Mobile Number
                     </label>
-                    <div className="flex gap-2">
-                      <div className="relative">
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <div className="relative flex-shrink-0">
                         <select
                           value={senderCountryCode}
                           onChange={(e) => {
@@ -236,7 +237,7 @@ export default function Home() {
                             const formatted = formatPhoneNumber(digits, e.target.value)
                             setFormData({ ...formData, senderMobile: formatted })
                           }}
-                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer"
+                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
                         >
                           {COUNTRY_CODES.map((country) => (
                             <option key={country.code} value={country.code} className="bg-black">
@@ -244,8 +245,8 @@ export default function Home() {
                             </option>
                           ))}
                         </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </div>
@@ -265,7 +266,7 @@ export default function Home() {
                           }
                         }}
                         maxLength={getMaxPhoneLength(senderCountryCode)}
-                        className="flex-1 px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                         placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : senderCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
@@ -287,7 +288,7 @@ export default function Home() {
                       required
                       value={formData.receiverName}
                       onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
-                      className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                      className="w-full px-4 py-3 text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
                       placeholder="Jane Smith"
                     />
                   </div>
@@ -296,8 +297,8 @@ export default function Home() {
                     <label className="block text-sm font-medium text-gray-300 mb-2">
                       Recipient Mobile Number
                     </label>
-                    <div className="flex gap-2">
-                      <div className="relative">
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <div className="relative flex-shrink-0">
                         <select
                           value={receiverCountryCode}
                           onChange={(e) => {
@@ -307,7 +308,7 @@ export default function Home() {
                             const formatted = formatPhoneNumber(digits, e.target.value)
                             setFormData({ ...formData, receiverMobile: formatted })
                           }}
-                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer"
+                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
                         >
                           {COUNTRY_CODES.map((country) => (
                             <option key={country.code} value={country.code} className="bg-black">
@@ -315,8 +316,8 @@ export default function Home() {
                             </option>
                           ))}
                         </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                           </svg>
                         </div>
@@ -336,7 +337,7 @@ export default function Home() {
                           }
                         }}
                         maxLength={getMaxPhoneLength(receiverCountryCode)}
-                        className="flex-1 px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                         placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : receiverCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
@@ -366,9 +367,9 @@ export default function Home() {
                         setFormData({ ...formData, amount: value })
                       }
                     }}
-                    className="w-full pl-8 pr-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
-                    placeholder="100.00"
-                  />
+                    className="w-full pl-8 pr-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                      placeholder="100.00"
+                    />
                 </div>
                 <p className="text-xs text-gray-500 mt-1.5">
                   Beta limit: Maximum $500 per gift
@@ -415,7 +416,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#98FF98] text-black rounded-full font-semibold hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)] text-base"
+                className="w-full py-4 min-h-[48px] bg-[#98FF98] text-black rounded-full font-semibold hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)] text-base"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">

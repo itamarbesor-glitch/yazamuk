@@ -354,7 +354,7 @@ export default function ClaimPage() {
                       <span className="text-lg">🎁</span>
                       <div className="flex items-center gap-2">
                         <span className="text-gray-300 text-sm">Gift from</span>
-                        <span className="text-white font-bold text-base">{gift.senderName}</span>
+                        <span className="text-white font-bold text-base break-words">{gift.senderName}</span>
                       </div>
                     </div>
                     
@@ -378,7 +378,7 @@ export default function ClaimPage() {
                       )}
                       
                       {/* Step 2: Price */}
-                      <div className="text-7xl font-black text-white leading-none tracking-tight">
+                      <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tight break-words">
                         ${gift.amount.toFixed(2)}
                       </div>
                       
@@ -419,10 +419,10 @@ export default function ClaimPage() {
 
               {/* Form Header */}
               <div className="mb-6">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2 break-words">
                   Create your account to claim assets
                 </h2>
-                <p className="text-gray-400 text-sm mb-3">
+                <p className="text-gray-400 text-sm mb-3 break-words">
                   Complete the form below to claim your gift
                 </p>
                 {/* Already have account message */}
@@ -470,7 +470,7 @@ export default function ClaimPage() {
                   required
                   value={formData.firstName}
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                 />
               </div>
 
@@ -483,7 +483,7 @@ export default function ClaimPage() {
                   required
                   value={formData.lastName}
                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                 />
               </div>
             </div>
@@ -497,7 +497,7 @@ export default function ClaimPage() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                 placeholder="your@email.com"
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -532,7 +532,7 @@ export default function ClaimPage() {
                     const value = e.target.value.replace(/\D/g, '')
                     setFormData({ ...formData, taxId: value })
                   }}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                   placeholder="123456789 (numbers only)"
                 />
                 <p className="text-xs text-gray-500 mt-1">
@@ -550,7 +550,7 @@ export default function ClaimPage() {
                 required
                 value={formData.streetAddress}
                 onChange={(e) => setFormData({ ...formData, streetAddress: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
               />
             </div>
 
@@ -578,7 +578,7 @@ export default function ClaimPage() {
                     required
                     value={formData.state}
                     onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                   />
                 </div>
 
@@ -591,7 +591,7 @@ export default function ClaimPage() {
                     required
                     value={formData.zipCode}
                     onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
-                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                   />
                 </div>
               </div>
@@ -624,7 +624,7 @@ export default function ClaimPage() {
                   minLength={6}
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                   placeholder="At least 6 characters (optional for existing users)"
                 />
               </div>
@@ -637,7 +637,7 @@ export default function ClaimPage() {
                   type="password"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                   placeholder="Re-enter your password"
                 />
               </div>
@@ -647,7 +647,7 @@ export default function ClaimPage() {
                 <button
                   type="submit"
                   disabled={isClaiming}
-                  className="w-full py-3 sm:py-4 text-base sm:text-lg bg-[#98FF98] text-black font-semibold rounded-full hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)]"
+                  className="w-full py-3 sm:py-4 min-h-[48px] text-base sm:text-lg bg-[#98FF98] text-black font-semibold rounded-full hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)]"
                 >
                   {isClaiming ? 'Processing...' : 'Complete Claim'}
                 </button>

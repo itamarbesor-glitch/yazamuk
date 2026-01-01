@@ -158,12 +158,12 @@ export default function SuccessPage() {
                 )}
                 
                 {/* Step 2: Price */}
-                <div className="text-7xl font-black text-white leading-none tracking-tight">
+                <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-none tracking-tight break-words">
                   ${gift?.amount.toFixed(2) || '0.00'}
                 </div>
                 
                 {/* Step 3: Ticker */}
-                <div className="text-xl font-bold tracking-widest text-[#98FF98] uppercase">
+                <div className="text-lg sm:text-xl font-bold tracking-widest text-[#98FF98] uppercase break-words">
                   {gift?.stockSymbol || 'STOCK'} STOCK
                 </div>
               </div>
@@ -192,10 +192,10 @@ export default function SuccessPage() {
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-[#98FF98] text-base sm:text-lg font-semibold">✅ Sent via WhatsApp</span>
                   </div>
-                  <p className="text-white font-bold text-base sm:text-lg mb-1">
+                  <p className="text-white font-bold text-base sm:text-lg mb-1 break-words">
                     {gift?.receiverName || 'Recipient'}
                   </p>
-                  <p className="text-gray-400 text-sm sm:text-base">
+                  <p className="text-gray-400 text-sm sm:text-base break-words">
                     {gift?.receiverMobile || '+1 (XXX) XXX-XXXX'}
                   </p>
                 </div>
@@ -245,7 +245,7 @@ export default function SuccessPage() {
               <div className="flex flex-col sm:flex-row gap-3 w-full">
                 <a
                   href="/"
-                  className="flex-1 px-6 py-3 bg-[#98FF98] text-black font-semibold rounded-full hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-[0_0_20px_rgba(152,255,152,0.4)]"
+                  className="flex-1 px-6 py-3 min-h-[48px] flex items-center justify-center bg-[#98FF98] text-black font-semibold rounded-full hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base shadow-[0_0_20px_rgba(152,255,152,0.4)]"
                 >
                   Create Another Gift
                 </a>
