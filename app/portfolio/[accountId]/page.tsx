@@ -315,7 +315,7 @@ export default function PortfolioPage() {
 
         {/* Login Reminder (if not showing welcome) */}
         {!showWelcome && user && (
-          <div className="mb-6 sm:mb-8 glass rounded-xl p-3 sm:p-4">
+          <div className="mb-6 sm:mb-8 bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-3 sm:p-4 shadow-2xl">
             <p className="text-xs sm:text-sm text-gray-400">
               <span className="text-mint-400">💡 Tip:</span> You can log in anytime using your email (<span className="break-all">{user.email}</span>) and password to access your portfolio.
             </p>
@@ -326,11 +326,11 @@ export default function PortfolioPage() {
         {openOrders.length > 0 && (
           <div className="mb-4 sm:mb-6 md:mb-8">
             <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-white">Active Orders Details</h2>
-            <div className="glass rounded-xl overflow-hidden shadow-xl">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
               <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-slate-700">
-                    <thead className="bg-slate-800/50 border-b border-slate-700">
+                    <thead className="bg-black/20 border-b border-white/10">
                       <tr>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Side</th>
@@ -341,7 +341,7 @@ export default function PortfolioPage() {
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Time</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-700">
+                    <tbody className="divide-y divide-white/10">
                       {openOrders.map((order) => (
                         <tr key={order.id} className="hover:bg-slate-800/30 transition-colors">
                           <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4">
@@ -391,13 +391,13 @@ export default function PortfolioPage() {
         {/* Account Summary */}
         {accountInfo && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6 md:mb-8">
-            <div className="glass rounded-xl p-4 sm:p-5 md:p-6 shadow-xl">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-4 sm:p-5 md:p-6 shadow-2xl">
               <div className="text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Cash</div>
               <div className="text-lg sm:text-xl md:text-2xl font-bold text-mint-400 break-words">
                 {formatCurrency(accountInfo.cash)}
               </div>
             </div>
-            <div className="glass rounded-xl p-4 sm:p-5 md:p-6 shadow-xl">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-4 sm:p-5 md:p-6 shadow-2xl">
               <div className="text-xs sm:text-sm text-gray-400 mb-1.5 sm:mb-2">Total Portfolio Value</div>
               <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-400 break-words">
                 {formatCurrency(totalPortfolioValue + parseFloat(accountInfo.cash || '0'))}
@@ -425,11 +425,11 @@ export default function PortfolioPage() {
               </div>
             </div>
           ) : (
-          <div className="bg-gray-900 border border-gray-700 rounded-xl overflow-hidden">
+          <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
               <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-slate-700">
-                    <thead className="bg-slate-800/50 border-b border-slate-700">
+                    <thead className="bg-black/20 border-b border-white/10">
                       <tr>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Qty</th>
@@ -440,12 +440,12 @@ export default function PortfolioPage() {
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300">P/L %</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-700">
+                    <tbody className="divide-y divide-white/10">
                       {positions.map((position, index) => {
                         const unrealizedPL = parseFloat(position.unrealized_pl || '0')
                         const unrealizedPLPercent = parseFloat(position.unrealized_plpc || '0')
                         return (
-                          <tr key={index} className="hover:bg-slate-800/30 transition-colors">
+                          <tr key={index} className="hover:bg-white/5 transition-colors">
                             <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4">
                               <div className="text-sm sm:text-base md:text-lg font-bold text-white">{position.symbol}</div>
                             </td>
@@ -486,11 +486,11 @@ export default function PortfolioPage() {
         {recentFilledOrders.length > 0 && (
           <div>
             <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-3 sm:mb-4 text-white">Recent Orders</h2>
-            <div className="glass rounded-xl overflow-hidden shadow-xl">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
               <div className="overflow-x-auto">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-slate-700">
-                    <thead className="bg-slate-800/50 border-b border-slate-700">
+                    <thead className="bg-black/20 border-b border-white/10">
                       <tr>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Symbol</th>
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-left text-xs sm:text-sm font-semibold text-gray-300">Side</th>
@@ -500,7 +500,7 @@ export default function PortfolioPage() {
                         <th className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 text-right text-xs sm:text-sm font-semibold text-gray-300 hidden md:table-cell">Filled At</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-700">
+                    <tbody className="divide-y divide-white/10">
                       {recentFilledOrders.map((order) => (
                         <tr key={order.id} className="hover:bg-slate-800/30 transition-colors">
                           <td className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4">

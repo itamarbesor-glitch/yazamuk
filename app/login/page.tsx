@@ -72,9 +72,9 @@ function LoginForm() {
         <div className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-md w-full glass rounded-2xl p-8 shadow-2xl animate-fade-in">
+      <div className="relative max-w-md w-full bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 shadow-2xl animate-fade-in">
         {/* Logo */}
-        <div className="mb-8 flex justify-center">
+        <div className="mb-8">
           <Logo size="lg" />
         </div>
 
@@ -101,7 +101,7 @@ function LoginForm() {
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+              className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
               placeholder="your@email.com"
             />
           </div>
@@ -115,7 +115,7 @@ function LoginForm() {
               required
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+              className="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
               placeholder="Enter your password"
             />
           </div>
@@ -123,7 +123,7 @@ function LoginForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-mint-500/30"
+            className="w-full py-3.5 bg-[#98FF98] text-black font-semibold rounded-full hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)]"
           >
             {loading ? (
               <span className="flex items-center justify-center gap-2">

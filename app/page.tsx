@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import axios from 'axios'
 import Logo from '@/components/Logo'
 import StockLogo from '@/components/StockLogo'
@@ -19,6 +20,7 @@ const COUNTRY_CODES = [
 
 export default function Home() {
   const router = useRouter()
+  const formRef = useRef<HTMLDivElement>(null)
   const [formData, setFormData] = useState({
     senderName: '',
     senderMobile: '',
@@ -31,6 +33,10 @@ export default function Home() {
   const [senderCountryCode, setSenderCountryCode] = useState('+1')
   const [receiverCountryCode, setReceiverCountryCode] = useState('+1')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   // Format phone number based on country code
   const formatPhoneNumber = (value: string, countryCode: string): string => {
@@ -121,10 +127,10 @@ export default function Home() {
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative container mx-auto px-4 py-6 sm:py-8 md:py-12">
-        <div className="max-w-3xl mx-auto">
-          {/* Header */}
-          <div className="flex justify-between items-center mb-6 sm:mb-8 animate-fade-in">
+      <div className="relative">
+        {/* Header */}
+        <div className="container mx-auto px-4 py-6 sm:py-8">
+          <div className="flex justify-between items-center animate-fade-in">
             <Logo size="lg" />
             <a
               href="/login"
@@ -133,37 +139,69 @@ export default function Home() {
               Sign In
             </a>
           </div>
+        </div>
 
-          {/* Beta Disclaimer */}
-          <div className="mb-6 sm:mb-8 p-3 sm:p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl animate-fade-in">
-            <div className="flex items-start gap-2.5 sm:gap-3">
-              <div className="text-lg sm:text-xl flex-shrink-0">⚠️</div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs sm:text-sm text-amber-300 leading-relaxed">
-                  <strong className="font-semibold">Beta Version:</strong> This is a beta testing environment. All transactions use play money (Alpaca Sandbox) and are not real. No actual funds are involved.
+        {/* Hero Section - Full Width */}
+        <div className="w-full mb-16 sm:mb-20 md:mb-24 py-16 md:py-20 animate-slide-up">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start">
+              {/* Left Side - Text Content */}
+              <div className="text-center md:text-left flex flex-col justify-start">
+                <h1 className="text-5xl sm:text-6xl md:text-6xl font-bold mb-4 sm:mb-5 leading-[1.1] tracking-tight">
+                  <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent inline-block">
+                    The Gift That Grows.
+                  </span>
+                </h1>
+                <p className="text-lg sm:text-xl md:text-xl text-gray-400 mb-5 sm:mb-6 leading-relaxed">
+                  Don&apos;t just give cash. Give a piece of the future. Send stocks like Tesla, Apple, and NVIDIA instantly via WhatsApp.
                 </p>
+                <button
+                  onClick={scrollToForm}
+                  className="px-6 py-3 bg-[#98FF98] text-black rounded-full font-semibold text-sm sm:text-base hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(152,255,152,0.4)] w-fit"
+                >
+                  Start Gifting
+                </button>
+              </div>
+
+              {/* Right Side - Image */}
+              <div className="flex justify-center md:justify-start relative items-start md:ml-24">
+                <div className="relative w-full max-w-[33.6rem]">
+                  {/* Glow blob behind image */}
+                  <div className="absolute inset-0 bg-mint-500/20 rounded-3xl blur-3xl transform scale-110 pointer-events-none" style={{ zIndex: 0 }}></div>
+                  
+                  {/* Image without container */}
+                  <div className="relative" style={{ zIndex: 1 }}>
+                    <Image
+                      src="/images/design/hero-mockup.png"
+                      alt="Mintbox Hero Mockup"
+                      width={800}
+                      height={600}
+                      className="object-contain w-full h-full"
+                      style={{ 
+                        border: 'none',
+                        outline: 'none',
+                        display: 'block'
+                      }}
+                      priority
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Hero Section */}
-          <div className="mb-8 sm:mb-12 animate-slide-up">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                Gift Stocks
+        {/* Form Section */}
+        <div ref={formRef} className="container mx-auto px-4 pb-12">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12">
+              <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+                Send a Gift in Seconds
               </span>
-              <br />
-              <span className="bg-gradient-to-r from-mint-400 via-mint-500 to-mint-600 bg-clip-text text-transparent">
-                Made Simple
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl text-gray-400 max-w-xl leading-relaxed">
-              Send the perfect gift. Your friends receive real stocks they can track, hold, or sell—all in minutes.
-            </p>
-          </div>
+            </h2>
 
           {/* Form Card */}
-          <div className="glass rounded-2xl p-6 sm:p-8 md:p-10 shadow-2xl animate-slide-up">
+          <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl animate-slide-up">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Sender Info */}
               <div>
@@ -198,10 +236,10 @@ export default function Home() {
                             const formatted = formatPhoneNumber(digits, e.target.value)
                             setFormData({ ...formData, senderMobile: formatted })
                           }}
-                          className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
+                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer"
                         >
                           {COUNTRY_CODES.map((country) => (
-                            <option key={country.code} value={country.code} className="bg-slate-800">
+                            <option key={country.code} value={country.code} className="bg-black">
                               {country.flag} {country.code}
                             </option>
                           ))}
@@ -227,7 +265,7 @@ export default function Home() {
                           }
                         }}
                         maxLength={getMaxPhoneLength(senderCountryCode)}
-                        className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                        className="flex-1 px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                         placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : senderCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
@@ -269,10 +307,10 @@ export default function Home() {
                             const formatted = formatPhoneNumber(digits, e.target.value)
                             setFormData({ ...formData, receiverMobile: formatted })
                           }}
-                          className="appearance-none bg-slate-800/50 border border-slate-700 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all cursor-pointer"
+                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-3 py-3 pr-8 text-white text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer"
                         >
                           {COUNTRY_CODES.map((country) => (
-                            <option key={country.code} value={country.code} className="bg-slate-800">
+                            <option key={country.code} value={country.code} className="bg-black">
                               {country.flag} {country.code}
                             </option>
                           ))}
@@ -298,7 +336,7 @@ export default function Home() {
                           }
                         }}
                         maxLength={getMaxPhoneLength(receiverCountryCode)}
-                        className="flex-1 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                        className="flex-1 px-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                         placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : receiverCountryCode === '+972' ? '50-123-4567' : '1234567890'}
                       />
                     </div>
@@ -328,7 +366,7 @@ export default function Home() {
                         setFormData({ ...formData, amount: value })
                       }
                     }}
-                    className="w-full pl-8 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
+                    className="w-full pl-8 pr-4 py-3 bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
                     placeholder="100.00"
                   />
                 </div>
@@ -348,22 +386,22 @@ export default function Home() {
                       key={stock.symbol}
                       type="button"
                       onClick={() => setFormData({ ...formData, stockSymbol: stock.symbol })}
-                      className={`group relative p-5 rounded-xl border-2 transition-all card-hover ${
+                      className={`group relative p-5 rounded-xl transition-all card-hover ${
                         formData.stockSymbol === stock.symbol
-                          ? 'border-mint-500 bg-gradient-to-br ' + stock.color + ' shadow-lg shadow-mint-500/30 scale-105'
-                          : 'border-slate-700 bg-slate-800/30 hover:border-slate-600'
+                          ? 'border-2 border-[#98FF98] bg-[#98FF98]/10'
+                          : 'border-2 border-transparent bg-white/5 hover:bg-white/10'
                       }`}
                     >
                       <div className="mb-3 flex justify-center">
-                        <div className={`${formData.stockSymbol === stock.symbol ? 'text-white' : 'text-mint-400'}`}>
+                        <div className="text-mint-400">
                           <StockLogo symbol={stock.symbol} size="md" />
                         </div>
                       </div>
                       <div className="text-xl font-bold text-white mb-1">{stock.symbol}</div>
                       <div className="text-xs text-gray-400">{stock.name}</div>
                       {formData.stockSymbol === stock.symbol && (
-                        <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                          <svg className="w-3 h-3 text-mint-600" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-[#98FF98] rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 text-black" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
                         </div>
@@ -377,7 +415,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-gradient-to-r from-mint-500 to-mint-600 text-white font-semibold rounded-xl hover:from-mint-600 hover:to-mint-700 transition-all transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg shadow-mint-500/30 text-base"
+                className="w-full py-4 bg-[#98FF98] text-black rounded-full font-semibold hover:bg-[#85FF85] transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-[0_0_20px_rgba(152,255,152,0.4)] text-base"
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center gap-2">
@@ -392,6 +430,13 @@ export default function Home() {
                 )}
               </button>
             </form>
+            
+            {/* Beta Disclaimer - Footer Note */}
+            <div className="mt-4">
+              <p className="text-xs text-gray-600 text-center">
+                <span className="text-amber-400">⚠️ Beta Version:</span> This is a beta testing environment. All transactions use play money (Alpaca Sandbox) and are not real.
+              </p>
+            </div>
           </div>
 
           {/* Trust Indicators */}
@@ -418,6 +463,7 @@ export default function Home() {
                 <span>Instant</span>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

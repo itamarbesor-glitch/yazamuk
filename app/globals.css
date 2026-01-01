@@ -36,4 +36,46 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   }
+  
+  @keyframes successBounce {
+    0%, 100% {
+      transform: scale(1) translateY(0);
+    }
+    50% {
+      transform: scale(1.1) translateY(-10px);
+    }
+  }
+  
+  .animate-success-bounce {
+    animation: successBounce 0.6s ease-in-out;
+  }
+  
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .rotate-y-0 {
+    transform: rotateY(0deg);
+  }
+  
+  .rotate-y-90 {
+    transform: rotateY(90deg);
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Remove all borders from hero image container */
+img[alt="Mintbox Hero Mockup"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove borders from any container holding the hero image */
+div:has(> img[alt="Mintbox Hero Mockup"]) {
+  border: none !important;
+  outline: none !important;
 }
