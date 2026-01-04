@@ -460,7 +460,7 @@ export default function ClaimPage() {
               </div>
 
               {/* Form Container */}
-              <form onSubmit={handleSubmit} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 shadow-2xl relative">
+              <form onSubmit={handleSubmit} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-3xl p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 shadow-2xl relative overflow-hidden">
                 {/* Back Button - Inside Card */}
                 <button
                   type="button"
@@ -526,8 +526,8 @@ export default function ClaimPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-              <div className="min-w-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 overflow-hidden">
+              <div className="min-w-0 overflow-hidden">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Date of Birth *
                 </label>
@@ -536,7 +536,8 @@ export default function ClaimPage() {
                   required
                   value={formData.dateOfBirth}
                   onChange={(e) => setFormData({ ...formData, dateOfBirth: e.target.value })}
-                  className="w-full min-w-0 px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  className="w-full min-w-0 max-w-full box-border px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                  style={{ width: '100%', maxWidth: '100%' }}
                 />
               </div>
 
