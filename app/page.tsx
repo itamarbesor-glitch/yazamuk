@@ -156,7 +156,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start">
               {/* Left Side - Text Content */}
-              <div className="text-center md:text-left flex flex-col justify-start">
+              <div className="text-center md:text-left flex flex-col justify-start items-center md:items-start">
                 <h1 className="text-5xl sm:text-6xl md:text-6xl font-bold mb-4 sm:mb-5 leading-[1.1] tracking-tight">
                   <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent inline-block">
                     The Gift That Grows.
