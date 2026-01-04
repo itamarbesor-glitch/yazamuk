@@ -95,3 +95,64 @@ input[type="date"] {
   max-width: 100% !important;
   width: 100% !important;
 }
+
+/* Hide number input spinner arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Custom Gift Value Slider Styling */
+.gift-value-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  outline: none;
+}
+
+.gift-value-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #98FF98;
+  box-shadow: 0 0 10px rgba(152, 255, 152, 0.5), 0 0 20px rgba(152, 255, 152, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gift-value-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(152, 255, 152, 0.7), 0 0 25px rgba(152, 255, 152, 0.5);
+}
+
+.gift-value-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #98FF98;
+  box-shadow: 0 0 10px rgba(152, 255, 152, 0.5), 0 0 20px rgba(152, 255, 152, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gift-value-slider::-moz-range-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(152, 255, 152, 0.7), 0 0 25px rgba(152, 255, 152, 0.5);
+}
+
+.gift-value-slider::-moz-range-track {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}

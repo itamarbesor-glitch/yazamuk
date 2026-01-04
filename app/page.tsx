@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import axios from 'axios'
 import Logo from '@/components/Logo'
 import StockLogo from '@/components/StockLogo'
+import MintboxLoader from '@/components/MintboxLoader'
 
 const STOCKS = [
   { symbol: 'TSLA', name: 'Tesla', color: 'from-gray-400 to-gray-600' },
@@ -27,12 +28,20 @@ export default function Home() {
     receiverName: '',
     receiverEmail: '',
     receiverMobile: '',
-    amount: '',
+    amount: '50.00',
     stockSymbol: '',
   })
   const [senderCountryCode, setSenderCountryCode] = useState('+1')
   const [receiverCountryCode, setReceiverCountryCode] = useState('+1')
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Ensure amount displays with .00 on initial load
+  useEffect(() => {
+    const numValue = parseFloat(formData.amount)
+    if (!isNaN(numValue) && formData.amount !== numValue.toFixed(2)) {
+      setFormData(prev => ({ ...prev, amount: numValue.toFixed(2) }))
+    }
+  }, [])
 
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -81,7 +90,7 @@ export default function Home() {
       return
     }
 
-    const amount = parseFloat(formData.amount)
+    const amount = parseInt(formData.amount)
     if (isNaN(amount) || amount < 1) {
       alert('Please enter a valid amount (minimum $1)')
       return
@@ -107,7 +116,7 @@ export default function Home() {
       
       if (response.data.giftId) {
         // Use window.location.href for more reliable redirects on iOS Chrome
-        // Add small delay to ensure page is ready
+        // Keep isSubmitting true until redirect happens - don't set to false
         setTimeout(() => {
           try {
             window.location.href = `/success/${response.data.giftId}`
@@ -115,8 +124,12 @@ export default function Home() {
             // Fallback to router.push if window.location fails
             console.error('Redirect error, using router.push:', error)
             router.push(`/success/${response.data.giftId}`)
+            // Only set to false if redirect fails
+            setIsSubmitting(false)
           }
         }, 100)
+        // Don't set isSubmitting to false here - let the redirect happen
+        return
       } else {
         throw new Error('No gift ID returned')
       }
@@ -124,9 +137,18 @@ export default function Home() {
       console.error('Error creating gift:', error)
       const errorMessage = error.response?.data?.error || error.message || 'Failed to create gift. Please try again.'
       alert(errorMessage)
-    } finally {
       setIsSubmitting(false)
     }
+  }
+
+  // Show full-screen loading overlay when submitting
+  if (isSubmitting) {
+    return (
+      <MintboxLoader 
+        title="Wrapping your Gift..."
+        cyclingSubtitles={['Saving details...', 'Generating link...', 'Finalizing...']}
+      />
+    )
   }
 
   return (
@@ -214,182 +236,48 @@ export default function Home() {
           {/* Form Card */}
           <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl animate-slide-up">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Sender Info */}
-              <div>
-                <h2 className="text-lg font-semibold text-white mb-4">Your Information</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.senderName}
-                      onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
-                      className="w-full px-4 py-3 text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                      placeholder="John Doe"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Your Mobile Number
-                    </label>
-                    <div className="flex gap-1.5 sm:gap-2">
-                      <div className="relative flex-shrink-0">
-                        <select
-                          value={senderCountryCode}
-                          onChange={(e) => {
-                            setSenderCountryCode(e.target.value)
-                            // Reformat phone number when country code changes
-                            const digits = getUnformattedPhone(formData.senderMobile)
-                            const formatted = formatPhoneNumber(digits, e.target.value)
-                            setFormData({ ...formData, senderMobile: formatted })
-                          }}
-                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
-                        >
-                          {COUNTRY_CODES.map((country) => (
-                            <option key={country.code} value={country.code} className="bg-black">
-                              {country.flag} {country.code}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
-                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.senderMobile}
-                        onChange={(e) => {
-                          const inputValue = e.target.value
-                          // Remove any existing country code if user types one
-                          const cleaned = inputValue.replace(/^\+\d+/, '')
-                          const formatted = formatPhoneNumber(cleaned, senderCountryCode)
-                          const maxLength = getMaxPhoneLength(senderCountryCode)
-                          if (formatted.length <= maxLength) {
-                            setFormData({ ...formData, senderMobile: formatted })
-                          }
-                        }}
-                        maxLength={getMaxPhoneLength(senderCountryCode)}
-                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
-                        placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : senderCountryCode === '+972' ? '50-123-4567' : '1234567890'}
-                      />
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1.5">Country code selected automatically</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Receiver Info */}
-              <div>
-                <h2 className="text-lg font-semibold text-white mb-4">Recipient Information</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Recipient Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.receiverName}
-                      onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
-                      className="w-full px-4 py-3 text-base bg-slate-800/50 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-mint-500/50 transition-all text-white placeholder-gray-500"
-                      placeholder="Jane Smith"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Recipient Mobile Number
-                    </label>
-                    <div className="flex gap-1.5 sm:gap-2">
-                      <div className="relative flex-shrink-0">
-                        <select
-                          value={receiverCountryCode}
-                          onChange={(e) => {
-                            setReceiverCountryCode(e.target.value)
-                            // Reformat phone number when country code changes
-                            const digits = getUnformattedPhone(formData.receiverMobile)
-                            const formatted = formatPhoneNumber(digits, e.target.value)
-                            setFormData({ ...formData, receiverMobile: formatted })
-                          }}
-                          className="appearance-none bg-black/20 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
-                        >
-                          {COUNTRY_CODES.map((country) => (
-                            <option key={country.code} value={country.code} className="bg-black">
-                              {country.flag} {country.code}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
-                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
-                      <input
-                        type="tel"
-                        required
-                        value={formData.receiverMobile}
-                        onChange={(e) => {
-                          const inputValue = e.target.value
-                          // Remove any existing country code if user types one
-                          const cleaned = inputValue.replace(/^\+\d+/, '')
-                          const formatted = formatPhoneNumber(cleaned, receiverCountryCode)
-                          const maxLength = getMaxPhoneLength(receiverCountryCode)
-                          if (formatted.length <= maxLength) {
-                            setFormData({ ...formData, receiverMobile: formatted })
-                          }
-                        }}
-                        maxLength={getMaxPhoneLength(receiverCountryCode)}
-                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
-                        placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : receiverCountryCode === '+972' ? '50-123-4567' : '1234567890'}
-                      />
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1.5">They'll receive a WhatsApp message</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Amount */}
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Gift Amount (Max $500 for Beta)
+              {/* 1. Gift Value - Hero Field at Top */}
+              <div className="mb-8">
+                <label className="block text-sm font-semibold text-gray-200 uppercase tracking-wider mb-2">
+                  GIFT VALUE
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg font-semibold">$</span>
                   <input
-                    type="number"
-                    required
-                    min="1"
-                    max="500"
-                    step="0.01"
-                    value={formData.amount}
-                    onChange={(e) => {
-                      const value = e.target.value
-                      // Only allow values up to 500
-                      if (value === '' || (parseFloat(value) >= 1 && parseFloat(value) <= 500)) {
-                        setFormData({ ...formData, amount: value })
-                      }
-                    }}
-                    className="w-full pl-8 pr-4 py-3 text-base bg-black/20 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
-                      placeholder="100.00"
-                    />
+                    type="text"
+                    readOnly
+                    value={`$${formData.amount}`}
+                    className="w-full pl-6 pr-6 py-6 text-4xl sm:text-5xl font-bold bg-black/40 border-2 border-white/10 rounded-2xl text-[#98FF98] placeholder-gray-600 cursor-default text-center"
+                  />
                 </div>
-                <p className="text-xs text-gray-500 mt-1.5">
+                
+                {/* Range Slider */}
+                <div className="mt-4 relative">
+                  <input
+                    type="range"
+                    min="5"
+                    max="500"
+                    step="5"
+                    value={Math.round((parseFloat(formData.amount) || 50) / 5) * 5}
+                    onChange={(e) => {
+                      const value = parseFloat(e.target.value)
+                      setFormData({ ...formData, amount: value.toFixed(2) })
+                    }}
+                    className="w-full h-2 rounded-full appearance-none cursor-pointer gift-value-slider"
+                    style={{
+                      background: `linear-gradient(to right, rgba(152, 255, 152, 0.5) 0%, #98FF98 ${((Math.round((parseFloat(formData.amount) || 50) / 5) * 5) - 5) / (500 - 5) * 100}%, rgba(255, 255, 255, 0.1) ${((Math.round((parseFloat(formData.amount) || 50) / 5) * 5) - 5) / (500 - 5) * 100}%, rgba(255, 255, 255, 0.1) 100%)`
+                    }}
+                  />
+                </div>
+                
+                <p className="text-xs text-gray-500 mt-2">
                   Beta limit: Maximum $500 per gift
                 </p>
               </div>
 
-              {/* Stock Selection */}
+              {/* 2. Stock Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-4">
-                  Choose a Stock
+                <label className="block text-sm font-semibold text-gray-200 uppercase tracking-wider mb-4">
+                  CHOOSE A STOCK
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {STOCKS.map((stock) => (
@@ -419,6 +307,186 @@ export default function Home() {
                       )}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* Spacing between Gift Definition and People */}
+              <div className="my-6"></div>
+
+              {/* 3. SECTION 1: FROM (You) */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4">
+                <h2 className="text-sm font-semibold text-gray-200 uppercase tracking-wider mb-2">
+                  FROM (YOU)
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.senderName}
+                      onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
+                      className="w-full px-4 py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#98FF98] focus:border-[#98FF98]/50 transition-all text-white placeholder-gray-500"
+                      placeholder="John Doe"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Your Mobile Number
+                    </label>
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <div className="relative flex-shrink-0">
+                        <select
+                          value={senderCountryCode}
+                          onChange={(e) => {
+                            setSenderCountryCode(e.target.value)
+                            // Reformat phone number when country code changes
+                            const digits = getUnformattedPhone(formData.senderMobile)
+                            const formatted = formatPhoneNumber(digits, e.target.value)
+                            setFormData({ ...formData, senderMobile: formatted })
+                          }}
+                          className="appearance-none bg-white/5 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
+                        >
+                          {COUNTRY_CODES.map((country) => (
+                            <option key={country.code} value={country.code} className="bg-black">
+                              {country.flag} {country.code}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.senderMobile}
+                        onChange={(e) => {
+                          const inputValue = e.target.value
+                          // Remove any existing country code if user types one
+                          const cleaned = inputValue.replace(/^\+\d+/, '')
+                          const formatted = formatPhoneNumber(cleaned, senderCountryCode)
+                          const maxLength = getMaxPhoneLength(senderCountryCode)
+                          if (formatted.length <= maxLength) {
+                            setFormData({ ...formData, senderMobile: formatted })
+                          }
+                        }}
+                        maxLength={getMaxPhoneLength(senderCountryCode)}
+                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                        placeholder={senderCountryCode === '+1' ? '(123) 456-7890' : senderCountryCode === '+972' ? '50-123-4567' : '1234567890'}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. Visual Connector - Transfer Hub */}
+              <div className="flex justify-center my-8">
+                <div className="flex flex-col items-center gap-3">
+                  {/* Bouncing Down Arrow - Bolder */}
+                  <svg 
+                    className="w-7 h-7 text-[#98FF98] animate-bounce" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    style={{ animationDuration: '2s' }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                  {/* Gift Box in Circular Hub Container */}
+                  <div className="w-16 h-16 rounded-full bg-[#98FF98]/10 border border-[#98FF98]/50 shadow-[0_0_20px_rgba(152,255,152,0.3)] flex items-center justify-center">
+                    <svg 
+                      className="w-10 h-10 text-[#98FF98]" 
+                      fill="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* 5. SECTION 2: TO (The Lucky Recipient) */}
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 sm:p-6 space-y-4">
+                <h2 className="text-sm font-semibold text-gray-200 uppercase tracking-wider mb-2">
+                  TO (THE LUCKY RECIPIENT)
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      Their Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.receiverName}
+                      onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
+                      className="w-full px-4 py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#98FF98] focus:border-[#98FF98]/50 transition-all text-white placeholder-gray-500"
+                      placeholder="Jane Smith"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Their WhatsApp Number
+                    </label>
+                    <div className="flex gap-1.5 sm:gap-2">
+                      <div className="relative flex-shrink-0">
+                        <select
+                          value={receiverCountryCode}
+                          onChange={(e) => {
+                            setReceiverCountryCode(e.target.value)
+                            // Reformat phone number when country code changes
+                            const digits = getUnformattedPhone(formData.receiverMobile)
+                            const formatted = formatPhoneNumber(digits, e.target.value)
+                            setFormData({ ...formData, receiverMobile: formatted })
+                          }}
+                          className="appearance-none bg-white/5 border border-white/10 rounded-xl px-2.5 sm:px-3 py-3 pr-7 sm:pr-8 text-white text-xs sm:text-sm focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all cursor-pointer w-auto"
+                        >
+                          {COUNTRY_CODES.map((country) => (
+                            <option key={country.code} value={country.code} className="bg-black">
+                              {country.flag} {country.code}
+                            </option>
+                          ))}
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-1.5 sm:pr-2 pointer-events-none">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.receiverMobile}
+                        onChange={(e) => {
+                          const inputValue = e.target.value
+                          // Remove any existing country code if user types one
+                          const cleaned = inputValue.replace(/^\+\d+/, '')
+                          const formatted = formatPhoneNumber(cleaned, receiverCountryCode)
+                          const maxLength = getMaxPhoneLength(receiverCountryCode)
+                          if (formatted.length <= maxLength) {
+                            setFormData({ ...formData, receiverMobile: formatted })
+                          }
+                        }}
+                        maxLength={getMaxPhoneLength(receiverCountryCode)}
+                        className="flex-1 min-w-0 px-3 sm:px-4 py-3 text-base bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-[#98FF98] focus:ring-1 focus:ring-[#98FF98] transition-all text-white placeholder-gray-400"
+                        placeholder={receiverCountryCode === '+1' ? '(123) 456-7890' : receiverCountryCode === '+972' ? '50-123-4567' : '1234567890'}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1.5">We'll text them the surprise via WhatsApp 💬</p>
+                  </div>
                 </div>
               </div>
 
