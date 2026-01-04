@@ -106,7 +106,17 @@ export default function Home() {
       })
       
       if (response.data.giftId) {
-        router.push(`/success/${response.data.giftId}`)
+        // Use window.location.href for more reliable redirects on iOS Chrome
+        // Add small delay to ensure page is ready
+        setTimeout(() => {
+          try {
+            window.location.href = `/success/${response.data.giftId}`
+          } catch (error) {
+            // Fallback to router.push if window.location fails
+            console.error('Redirect error, using router.push:', error)
+            router.push(`/success/${response.data.giftId}`)
+          }
+        }, 100)
       } else {
         throw new Error('No gift ID returned')
       }

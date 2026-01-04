@@ -128,16 +128,37 @@ export default function ClaimPage() {
         // Redirect directly to portfolio
         const accountId = response.data.accountId
         if (accountId) {
-          // If existing user, they might need to log in first
-          if (response.data.isExistingUser && !response.data.token) {
-            // User exists but wasn't logged in - redirect to login with message
-            router.push(`/login?redirect=/portfolio/${accountId}&message=Gift+claimed!+Please+log+in+to+view+your+portfolio`)
-          } else {
-            // New user or logged in - go to portfolio
-            router.push(`/portfolio/${accountId}`)
-          }
+          // Use window.location.href for more reliable redirects on iOS Chrome
+          // Add small delay to ensure page is ready
+          setTimeout(() => {
+            try {
+              if (response.data.isExistingUser && !response.data.token) {
+                // User exists but wasn't logged in - redirect to login with message
+                const loginUrl = `/login?redirect=/portfolio/${accountId}&message=Gift+claimed!+Please+log+in+to+view+your+portfolio`
+                window.location.href = loginUrl
+              } else {
+                // New user or logged in - go to portfolio
+                window.location.href = `/portfolio/${accountId}`
+              }
+            } catch (error) {
+              // Fallback to router.push if window.location fails
+              console.error('Redirect error, using router.push:', error)
+              if (response.data.isExistingUser && !response.data.token) {
+                router.push(`/login?redirect=/portfolio/${accountId}&message=Gift+claimed!+Please+log+in+to+view+your+portfolio`)
+              } else {
+                router.push(`/portfolio/${accountId}`)
+              }
+            }
+          }, 100)
         } else {
-          router.push(`/claim-success/${giftId}`)
+          setTimeout(() => {
+            try {
+              window.location.href = `/claim-success/${giftId}`
+            } catch (error) {
+              console.error('Redirect error, using router.push:', error)
+              router.push(`/claim-success/${giftId}`)
+            }
+          }, 100)
         }
       } else {
         alert(response.data.error || 'Failed to claim gift')
